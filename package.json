@@ -1,0 +1,109 @@
+{
+  "name": "prismforge-ai",
+  "version": "1.0.0",
+  "description": "Multi-agent validation platform for M&A due diligence",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "dev": "ts-node src/index.ts",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
+    "lint": "eslint src/**/*.ts",
+    "lint:fix": "eslint src/**/*.ts --fix",
+    "typecheck": "tsc --noEmit",
+    "start": "node dist/index.js",
+    "docs": "typedoc src/index.ts",
+    "example:basic": "ts-node src/examples/usage-patterns.ts"
+  },
+  "keywords": [
+    "M&A",
+    "due-diligence",
+    "multi-agent",
+    "validation",
+    "financial-analysis",
+    "typescript",
+    "ai"
+  ],
+  "author": "PrismForge AI Team",
+  "license": "MIT",
+  "dependencies": {
+    "xstate": "^4.38.3",
+    "redis": "^4.6.8",
+    "pg": "^8.11.3",
+    "winston": "^3.10.0",
+    "uuid": "^9.0.0",
+    "lodash": "^4.17.21",
+    "axios": "^1.5.0",
+    "joi": "^17.9.2",
+    "express": "^4.18.2",
+    "cors": "^2.8.5",
+    "helmet": "^7.0.0",
+    "rate-limiter-flexible": "^2.4.2",
+    "pdfjs-dist": "^3.9.179",
+    "mammoth": "^1.6.0",
+    "csv-parser": "^3.0.0",
+    "sharp": "^0.32.5"
+  },
+  "devDependencies": {
+    "@types/node": "^20.5.0",
+    "@types/jest": "^29.5.4",
+    "@types/lodash": "^4.14.197",
+    "@types/uuid": "^9.0.2",
+    "@types/pg": "^8.10.2",
+    "@types/express": "^4.17.17",
+    "@types/cors": "^2.8.13",
+    "@typescript-eslint/eslint-plugin": "^6.4.1",
+    "@typescript-eslint/parser": "^6.4.1",
+    "eslint": "^8.47.0",
+    "jest": "^29.6.2",
+    "ts-jest": "^29.1.1",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.1.6",
+    "typedoc": "^0.24.8",
+    "nodemon": "^3.0.1"
+  },
+  "jest": {
+    "preset": "ts-jest",
+    "testEnvironment": "node",
+    "roots": ["<rootDir>/src"],
+    "testMatch": ["**/__tests__/**/*.ts", "**/?(*.)+(spec|test).ts"],
+    "transform": {
+      "^.+\\.ts$": "ts-jest"
+    },
+    "collectCoverageFrom": [
+      "src/**/*.ts",
+      "!src/**/*.d.ts",
+      "!src/examples/**",
+      "!src/tests/**"
+    ],
+    "coverageDirectory": "coverage",
+    "coverageReporters": ["text", "lcov", "html"]
+  },
+  "eslintConfig": {
+    "extends": [
+      "@typescript-eslint/recommended"
+    ],
+    "parser": "@typescript-eslint/parser",
+    "plugins": ["@typescript-eslint"],
+    "root": true,
+    "rules": {
+      "@typescript-eslint/no-unused-vars": "error",
+      "@typescript-eslint/explicit-function-return-type": "warn",
+      "@typescript-eslint/no-explicit-any": "warn"
+    }
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=8.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rlin25/prismforge-ai-concept.git"
+  },
+  "bugs": {
+    "url": "https://github.com/rlin25/prismforge-ai-concept/issues"
+  },
+  "homepage": "https://github.com/rlin25/prismforge-ai-concept#readme"
+}
