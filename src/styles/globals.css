@@ -1,0 +1,191 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* PrismForge AI Professional Color System */
+    
+    /* Primary color palette */
+    --primary-blue: 214 100% 47%; /* #0070f3 - Vercel blue */
+    --skeptic-blue: 210 67% 24%; /* #1a365d - Dark blue for skeptical analysis */
+    --validator-blue: 213 73% 59%; /* #4299e1 - Medium blue for balanced validation */
+    --success-green: 158 64% 52%; /* #10b981 - Success states */
+    --warning-amber: 43 96% 56%; /* #f59e0b - Warnings */
+    --error-red: 0 84% 60%; /* #ef4444 - Errors */
+    
+    /* Neutral palette */
+    --background: 0 0% 100%; /* #ffffff */
+    --surface: 210 40% 98%; /* #f8fafc */
+    --surface-elevated: 0 0% 100%; /* #ffffff */
+    --border: 214 32% 91%; /* #e2e8f0 */
+    --border-elevated: 215 20% 80%; /* #cbd5e1 */
+    
+    /* Text hierarchy */
+    --text-primary: 210 22% 11%; /* #1a202c */
+    --text-secondary: 215 16% 32%; /* #4a5568 */
+    --text-tertiary: 215 13% 47%; /* #718096 */
+    --text-inverse: 0 0% 100%; /* #ffffff */
+
+    /* shadcn/ui variables */
+    --background: 0 0% 100%;
+    --foreground: 210 22% 11%;
+    --card: 0 0% 100%;
+    --card-foreground: 210 22% 11%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 210 22% 11%;
+    --primary: 214 100% 47%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 210 40% 96%;
+    --secondary-foreground: 210 22% 11%;
+    --muted: 210 40% 96%;
+    --muted-foreground: 215 16% 46.9%;
+    --accent: 210 40% 96%;
+    --accent-foreground: 210 22% 11%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 214 100% 47%;
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    --background: 210 22% 11%;
+    --foreground: 210 40% 98%;
+    --card: 210 22% 11%;
+    --card-foreground: 210 40% 98%;
+    --popover: 210 22% 11%;
+    --popover-foreground: 210 40% 98%;
+    --primary: 214 100% 47%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 215 16% 17%;
+    --secondary-foreground: 210 40% 98%;
+    --muted: 215 16% 17%;
+    --muted-foreground: 215 13% 65%;
+    --accent: 215 16% 17%;
+    --accent-foreground: 210 40% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 215 16% 17%;
+    --input: 215 16% 17%;
+    --ring: 214 100% 47%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    font-feature-settings: "cv11", "ss01";
+    font-variation-settings: "opsz" 32;
+  }
+
+  /* Professional typography for M&A documents */
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-semibold tracking-tight;
+  }
+
+  h1 { @apply text-2xl; }
+  h2 { @apply text-xl; }
+  h3 { @apply text-lg; }
+  h4 { @apply text-base font-medium; }
+
+  /* Professional focus states for enterprise usage */
+  .focus-ring {
+    @apply focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-background;
+  }
+
+  /* Professional scrollbars */
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-track {
+    @apply bg-surface;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    @apply bg-border rounded-full;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background-color: hsl(var(--border-elevated));
+  }
+
+  /* Professional animations for professional user experience */
+  .fade-in {
+    animation: fade-in 0.5s ease-out forwards;
+  }
+
+  .slide-up {
+    animation: slide-up 0.3s ease-out forwards;
+  }
+
+  /* Professional loading states */
+  .loading-skeleton {
+    @apply bg-surface animate-pulse;
+  }
+
+  /* Professional agent status indicators */
+  .agent-status-idle {
+    @apply bg-surface border border-border;
+  }
+
+  .agent-status-processing {
+    @apply bg-prism-blue-50 border border-prism-blue-200 animate-pulse-subtle;
+  }
+
+  .agent-status-complete {
+    @apply bg-success-green-50 border border-success-green-200;
+  }
+
+  .agent-status-error {
+    @apply bg-error-red-50 border border-error-red-200;
+  }
+
+  /* Professional progress bars */
+  .progress-bar {
+    @apply h-2 bg-surface rounded-full overflow-hidden;
+  }
+
+  .progress-fill {
+    @apply h-full bg-primary rounded-full transition-all duration-300 ease-out;
+  }
+
+  /* Professional chat interface */
+  .chat-message-user {
+    @apply bg-primary text-primary-foreground rounded-lg px-4 py-2 max-w-[80%] ml-auto;
+  }
+
+  .chat-message-assistant {
+    @apply bg-surface border border-border rounded-lg px-4 py-2 max-w-[80%];
+  }
+
+  /* Professional file upload */
+  .file-upload-zone {
+    @apply border-2 border-dashed border-border hover:border-primary transition-colors duration-200 rounded-lg p-8 text-center;
+  }
+
+  .file-upload-zone.drag-over {
+    @apply border-primary bg-primary/5;
+  }
+}
+
+/* Professional quality score indicator */
+.quality-score-professional {
+  @apply text-success-green-600 font-semibold;
+}
+
+.quality-score-warning {
+  @apply text-warning-amber-600 font-semibold;
+}
+
+.quality-score-error {
+  @apply text-error-red-600 font-semibold;
+}
