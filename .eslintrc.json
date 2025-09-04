@@ -1,0 +1,11 @@
+{
+  "extends": [
+    "next/core-web-vitals"
+  ],
+  "root": true,
+  "rules": {
+    "prefer-const": "error",
+    "no-var": "error",
+    "no-unused-vars": "warn"
+  }
+}
