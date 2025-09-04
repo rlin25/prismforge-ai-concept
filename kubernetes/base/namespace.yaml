@@ -1,0 +1,78 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: prismforge-ai
+  labels:
+    name: prismforge-ai
+    app.kubernetes.io/name: prismforge-ai
+    app.kubernetes.io/component: namespace
+  annotations:
+    # Enable Istio injection if using service mesh
+    istio-injection: enabled
+    # Pod Security Standards
+    pod-security.kubernetes.io/enforce: restricted
+    pod-security.kubernetes.io/audit: restricted
+    pod-security.kubernetes.io/warn: restricted
+---
+# Network Policy to restrict traffic
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: prismforge-ai-network-policy
+  namespace: prismforge-ai
+spec:
+  podSelector: {}
+  policyTypes:
+  - Ingress
+  - Egress
+  ingress:
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          name: ingress-nginx
+    - namespaceSelector:
+        matchLabels:
+          name: istio-system
+    - podSelector:
+        matchLabels:
+          app.kubernetes.io/name: prismforge-ai
+  egress:
+  - {} # Allow all egress traffic (can be restricted as needed)
+---
+# Resource Quota
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: prismforge-ai-quota
+  namespace: prismforge-ai
+spec:
+  hard:
+    requests.cpu: "4"
+    requests.memory: 8Gi
+    limits.cpu: "8"
+    limits.memory: 16Gi
+    pods: "10"
+    persistentvolumeclaims: "4"
+    services: "5"
+    secrets: "20"
+    configmaps: "20"
+---
+# Limit Range
+apiVersion: v1
+kind: LimitRange
+metadata:
+  name: prismforge-ai-limit-range
+  namespace: prismforge-ai
+spec:
+  limits:
+  - default:
+      cpu: "1"
+      memory: "2Gi"
+    defaultRequest:
+      cpu: "100m"
+      memory: "256Mi"
+    type: Container
+  - max:
+      cpu: "4"
+      memory: "8Gi"
+    type: Container

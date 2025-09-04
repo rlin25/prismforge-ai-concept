@@ -1,0 +1,337 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: prismforge-ai-app
+  namespace: prismforge-ai
+  labels:
+    app.kubernetes.io/name: prismforge-ai
+    app.kubernetes.io/component: app
+    app.kubernetes.io/version: "1.0.0"
+    app.kubernetes.io/part-of: prismforge-ai
+  annotations:
+    deployment.kubernetes.io/revision: "1"
+spec:
+  replicas: 3
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: prismforge-ai
+      app.kubernetes.io/component: app
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: prismforge-ai
+        app.kubernetes.io/component: app
+        app.kubernetes.io/version: "1.0.0"
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "3000"
+        prometheus.io/path: "/metrics"
+    spec:
+      # Security context for the pod
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1001
+        runAsGroup: 1001
+        fsGroup: 1001
+        seccompProfile:
+          type: RuntimeDefault
+      
+      # Service account for RBAC
+      serviceAccountName: prismforge-ai
+      
+      # Termination grace period
+      terminationGracePeriodSeconds: 30
+      
+      # Anti-affinity to spread pods across nodes
+      affinity:
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 100
+            podAffinityTerm:
+              labelSelector:
+                matchExpressions:
+                - key: app.kubernetes.io/name
+                  operator: In
+                  values:
+                  - prismforge-ai
+              topologyKey: kubernetes.io/hostname
+      
+      initContainers:
+      - name: wait-for-db
+        image: postgres:15-alpine
+        command: 
+        - sh
+        - -c
+        - |
+          until pg_isready -h postgres.prismforge-ai.svc.cluster.local -p 5432 -U postgres; do
+            echo "Waiting for PostgreSQL..."
+            sleep 5
+          done
+          echo "PostgreSQL is ready!"
+        securityContext:
+          runAsNonRoot: true
+          runAsUser: 1001
+          runAsGroup: 1001
+          allowPrivilegeEscalation: false
+          readOnlyRootFilesystem: true
+          capabilities:
+            drop:
+            - ALL
+        resources:
+          requests:
+            cpu: 50m
+            memory: 64Mi
+          limits:
+            cpu: 100m
+            memory: 128Mi
+      
+      - name: wait-for-redis
+        image: redis:7-alpine
+        command:
+        - sh
+        - -c
+        - |
+          until redis-cli -h redis.prismforge-ai.svc.cluster.local -p 6379 ping; do
+            echo "Waiting for Redis..."
+            sleep 5
+          done
+          echo "Redis is ready!"
+        securityContext:
+          runAsNonRoot: true
+          runAsUser: 1001
+          runAsGroup: 1001
+          allowPrivilegeEscalation: false
+          readOnlyRootFilesystem: true
+          capabilities:
+            drop:
+            - ALL
+        resources:
+          requests:
+            cpu: 50m
+            memory: 64Mi
+          limits:
+            cpu: 100m
+            memory: 128Mi
+      
+      containers:
+      - name: prismforge-app
+        image: prismforge-ai/app:latest
+        imagePullPolicy: Always
+        
+        ports:
+        - name: http
+          containerPort: 3000
+          protocol: TCP
+        
+        # Environment variables from ConfigMap
+        envFrom:
+        - configMapRef:
+            name: prismforge-ai-config
+        
+        # Environment variables from Secrets
+        env:
+        - name: DATABASE_URL
+          valueFrom:
+            secretKeyRef:
+              name: prismforge-ai-secrets
+              key: DATABASE_URL
+        - name: ANTHROPIC_API_KEY
+          valueFrom:
+            secretKeyRef:
+              name: prismforge-ai-secrets
+              key: ANTHROPIC_API_KEY
+        - name: NEXTAUTH_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: prismforge-ai-secrets
+              key: NEXTAUTH_SECRET
+        - name: SUPABASE_ANON_KEY
+          valueFrom:
+            secretKeyRef:
+              name: prismforge-ai-secrets
+              key: SUPABASE_ANON_KEY
+        - name: SUPABASE_SERVICE_ROLE_KEY
+          valueFrom:
+            secretKeyRef:
+              name: prismforge-ai-secrets
+              key: SUPABASE_SERVICE_ROLE_KEY
+        - name: REDIS_URL
+          valueFrom:
+            secretKeyRef:
+              name: prismforge-ai-secrets
+              key: REDIS_URL
+        
+        # Security context for the container
+        securityContext:
+          runAsNonRoot: true
+          runAsUser: 1001
+          runAsGroup: 1001
+          allowPrivilegeEscalation: false
+          readOnlyRootFilesystem: true
+          capabilities:
+            drop:
+            - ALL
+        
+        # Resource requests and limits
+        resources:
+          requests:
+            cpu: 500m
+            memory: 1Gi
+          limits:
+            cpu: 2000m
+            memory: 4Gi
+        
+        # Liveness probe
+        livenessProbe:
+          httpGet:
+            path: /api/health
+            port: http
+            scheme: HTTP
+          initialDelaySeconds: 60
+          periodSeconds: 30
+          timeoutSeconds: 10
+          successThreshold: 1
+          failureThreshold: 3
+        
+        # Readiness probe
+        readinessProbe:
+          httpGet:
+            path: /api/health
+            port: http
+            scheme: HTTP
+          initialDelaySeconds: 10
+          periodSeconds: 10
+          timeoutSeconds: 5
+          successThreshold: 1
+          failureThreshold: 3
+        
+        # Startup probe
+        startupProbe:
+          httpGet:
+            path: /api/health
+            port: http
+            scheme: HTTP
+          initialDelaySeconds: 10
+          periodSeconds: 10
+          timeoutSeconds: 5
+          successThreshold: 1
+          failureThreshold: 30
+        
+        # Volume mounts
+        volumeMounts:
+        - name: tmp
+          mountPath: /tmp
+        - name: app-cache
+          mountPath: /app/.next/cache
+        - name: app-logs
+          mountPath: /app/logs
+      
+      # NGINX sidecar container for caching and load balancing
+      - name: nginx
+        image: nginx:alpine
+        ports:
+        - name: nginx-http
+          containerPort: 80
+          protocol: TCP
+        
+        securityContext:
+          runAsNonRoot: true
+          runAsUser: 101
+          runAsGroup: 101
+          allowPrivilegeEscalation: false
+          readOnlyRootFilesystem: true
+          capabilities:
+            drop:
+            - ALL
+        
+        resources:
+          requests:
+            cpu: 100m
+            memory: 128Mi
+          limits:
+            cpu: 200m
+            memory: 256Mi
+        
+        volumeMounts:
+        - name: nginx-config
+          mountPath: /etc/nginx/nginx.conf
+          subPath: nginx.conf
+        - name: nginx-cache
+          mountPath: /var/cache/nginx
+        - name: nginx-logs
+          mountPath: /var/log/nginx
+        - name: nginx-run
+          mountPath: /var/run
+        
+        livenessProbe:
+          httpGet:
+            path: /nginx-health
+            port: nginx-http
+          initialDelaySeconds: 10
+          periodSeconds: 30
+        
+        readinessProbe:
+          httpGet:
+            path: /nginx-health
+            port: nginx-http
+          initialDelaySeconds: 5
+          periodSeconds: 10
+      
+      volumes:
+      - name: tmp
+        emptyDir: {}
+      - name: app-cache
+        emptyDir: {}
+      - name: app-logs
+        emptyDir: {}
+      - name: nginx-config
+        configMap:
+          name: nginx-config
+      - name: nginx-cache
+        emptyDir: {}
+      - name: nginx-logs
+        emptyDir: {}
+      - name: nginx-run
+        emptyDir: {}
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: prismforge-ai
+  namespace: prismforge-ai
+  labels:
+    app.kubernetes.io/name: prismforge-ai
+    app.kubernetes.io/component: service-account
+automountServiceAccountToken: true
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: prismforge-ai
+  namespace: prismforge-ai
+rules:
+- apiGroups: [""]
+  resources: ["secrets"]
+  verbs: ["get", "list"]
+- apiGroups: [""]
+  resources: ["configmaps"]
+  verbs: ["get", "list"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: prismforge-ai
+  namespace: prismforge-ai
+subjects:
+- kind: ServiceAccount
+  name: prismforge-ai
+  namespace: prismforge-ai
+roleRef:
+  kind: Role
+  name: prismforge-ai
+  apiGroup: rbac.authorization.k8s.io

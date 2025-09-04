@@ -1,0 +1,331 @@
+# PrismForge AI Prometheus Alert Rules
+groups:
+  - name: prismforge.application
+    rules:
+      # Application is down
+      - alert: PrismForgeApplicationDown
+        expr: up{job="prismforge-ai-app"} == 0
+        for: 2m
+        labels:
+          severity: critical
+          component: application
+          service: prismforge-ai
+        annotations:
+          summary: "PrismForge AI application is down"
+          description: "PrismForge AI application has been down for more than 2 minutes on instance {{ $labels.instance }}"
+          runbook_url: "https://docs.prismforge-ai.example.com/runbooks/application-down"
+
+      # High response time
+      - alert: PrismForgeHighResponseTime
+        expr: histogram_quantile(0.95, rate(http_request_duration_seconds_bucket{job="prismforge-ai-app"}[5m])) > 2
+        for: 5m
+        labels:
+          severity: warning
+          component: application
+          service: prismforge-ai
+        annotations:
+          summary: "High response time for PrismForge AI"
+          description: "95th percentile response time is {{ $value }}s for {{ $labels.instance }}"
+          runbook_url: "https://docs.prismforge-ai.example.com/runbooks/high-response-time"
+
+      # High error rate
+      - alert: PrismForgeHighErrorRate
+        expr: (rate(http_requests_total{job="prismforge-ai-app",status=~"5.."}[5m]) / rate(http_requests_total{job="prismforge-ai-app"}[5m])) > 0.05
+        for: 5m
+        labels:
+          severity: critical
+          component: application
+          service: prismforge-ai
+        annotations:
+          summary: "High error rate for PrismForge AI"
+          description: "Error rate is {{ $value | humanizePercentage }} for {{ $labels.instance }}"
+          runbook_url: "https://docs.prismforge-ai.example.com/runbooks/high-error-rate"
+
+      # Low success rate
+      - alert: PrismForgeLowSuccessRate
+        expr: (rate(http_requests_total{job="prismforge-ai-app",status=~"2.."}[10m]) / rate(http_requests_total{job="prismforge-ai-app"}[10m])) < 0.95
+        for: 10m
+        labels:
+          severity: warning
+          component: application
+          service: prismforge-ai
+        annotations:
+          summary: "Low success rate for PrismForge AI"
+          description: "Success rate is {{ $value | humanizePercentage }} for {{ $labels.instance }}"
+
+      # High memory usage
+      - alert: PrismForgeHighMemoryUsage
+        expr: (container_memory_usage_bytes{pod=~"prismforge-ai-app-.*"} / container_spec_memory_limit_bytes) > 0.8
+        for: 5m
+        labels:
+          severity: warning
+          component: application
+          service: prismforge-ai
+        annotations:
+          summary: "High memory usage for PrismForge AI"
+          description: "Memory usage is {{ $value | humanizePercentage }} on pod {{ $labels.pod }}"
+
+      # High CPU usage
+      - alert: PrismForgeHighCPUUsage
+        expr: rate(container_cpu_usage_seconds_total{pod=~"prismforge-ai-app-.*"}[5m]) > 0.8
+        for: 10m
+        labels:
+          severity: warning
+          component: application
+          service: prismforge-ai
+        annotations:
+          summary: "High CPU usage for PrismForge AI"
+          description: "CPU usage is {{ $value | humanizePercentage }} on pod {{ $labels.pod }}"
+
+      # Pod restart loop
+      - alert: PrismForgePodRestartLoop
+        expr: increase(kube_pod_container_status_restarts_total{pod=~"prismforge-ai-app-.*"}[1h]) > 3
+        for: 0m
+        labels:
+          severity: critical
+          component: application
+          service: prismforge-ai
+        annotations:
+          summary: "PrismForge AI pod is restarting frequently"
+          description: "Pod {{ $labels.pod }} has restarted {{ $value }} times in the last hour"
+
+      # Disk space low
+      - alert: PrismForgeLowDiskSpace
+        expr: (node_filesystem_avail_bytes{mountpoint="/"} / node_filesystem_size_bytes{mountpoint="/"}) < 0.1
+        for: 5m
+        labels:
+          severity: critical
+          component: infrastructure
+          service: prismforge-ai
+        annotations:
+          summary: "Low disk space on PrismForge AI node"
+          description: "Disk space is {{ $value | humanizePercentage }} available on {{ $labels.instance }}"
+
+  - name: prismforge.database
+    rules:
+      # Database is down
+      - alert: PrismForgePostgreSQLDown
+        expr: up{job="postgres-exporter"} == 0
+        for: 2m
+        labels:
+          severity: critical
+          component: database
+          service: postgresql
+        annotations:
+          summary: "PostgreSQL database is down"
+          description: "PostgreSQL database has been down for more than 2 minutes"
+          runbook_url: "https://docs.prismforge-ai.example.com/runbooks/database-down"
+
+      # High connection count
+      - alert: PrismForgePostgreSQLHighConnections
+        expr: pg_stat_database_numbackends{datname="prismforge"} > 80
+        for: 5m
+        labels:
+          severity: warning
+          component: database
+          service: postgresql
+        annotations:
+          summary: "High number of PostgreSQL connections"
+          description: "PostgreSQL has {{ $value }} connections to database {{ $labels.datname }}"
+
+      # Slow queries
+      - alert: PrismForgePostgreSQLSlowQueries
+        expr: rate(pg_stat_database_tup_returned{datname="prismforge"}[5m]) / rate(pg_stat_database_tup_fetched{datname="prismforge"}[5m]) < 0.5
+        for: 10m
+        labels:
+          severity: warning
+          component: database
+          service: postgresql
+        annotations:
+          summary: "PostgreSQL slow queries detected"
+          description: "Query efficiency is {{ $value | humanizePercentage }} for database {{ $labels.datname }}"
+
+      # High database size
+      - alert: PrismForgePostgreSQLHighDatabaseSize
+        expr: pg_database_size_bytes{datname="prismforge"} > 10 * 1024 * 1024 * 1024 # 10GB
+        for: 0m
+        labels:
+          severity: warning
+          component: database
+          service: postgresql
+        annotations:
+          summary: "PostgreSQL database size is large"
+          description: "Database {{ $labels.datname }} size is {{ $value | humanizeBytes }}"
+
+      # Deadlocks
+      - alert: PrismForgePostgreSQLDeadlocks
+        expr: increase(pg_stat_database_deadlocks{datname="prismforge"}[1h]) > 5
+        for: 0m
+        labels:
+          severity: warning
+          component: database
+          service: postgresql
+        annotations:
+          summary: "PostgreSQL deadlocks detected"
+          description: "{{ $value }} deadlocks detected in database {{ $labels.datname }} in the last hour"
+
+  - name: prismforge.cache
+    rules:
+      # Redis is down
+      - alert: PrismForgeRedisDown
+        expr: up{job="redis-exporter"} == 0
+        for: 2m
+        labels:
+          severity: critical
+          component: cache
+          service: redis
+        annotations:
+          summary: "Redis cache is down"
+          description: "Redis cache has been down for more than 2 minutes"
+          runbook_url: "https://docs.prismforge-ai.example.com/runbooks/redis-down"
+
+      # High memory usage
+      - alert: PrismForgeRedisHighMemoryUsage
+        expr: (redis_memory_used_bytes / redis_memory_max_bytes) > 0.8
+        for: 5m
+        labels:
+          severity: warning
+          component: cache
+          service: redis
+        annotations:
+          summary: "High Redis memory usage"
+          description: "Redis memory usage is {{ $value | humanizePercentage }}"
+
+      # High number of connections
+      - alert: PrismForgeRedisHighConnections
+        expr: redis_connected_clients > 100
+        for: 5m
+        labels:
+          severity: warning
+          component: cache
+          service: redis
+        annotations:
+          summary: "High number of Redis connections"
+          description: "Redis has {{ $value }} connected clients"
+
+      # High eviction rate
+      - alert: PrismForgeRedisHighEvictionRate
+        expr: rate(redis_evicted_keys_total[5m]) > 10
+        for: 5m
+        labels:
+          severity: warning
+          component: cache
+          service: redis
+        annotations:
+          summary: "High Redis key eviction rate"
+          description: "Redis is evicting {{ $value }} keys per second"
+
+  - name: prismforge.infrastructure
+    rules:
+      # Kubernetes node not ready
+      - alert: PrismForgeKubernetesNodeNotReady
+        expr: kube_node_status_condition{condition="Ready",status="true"} == 0
+        for: 5m
+        labels:
+          severity: critical
+          component: infrastructure
+          service: kubernetes
+        annotations:
+          summary: "Kubernetes node is not ready"
+          description: "Kubernetes node {{ $labels.node }} has been not ready for more than 5 minutes"
+
+      # High pod restart rate
+      - alert: PrismForgeKubernetesHighPodRestartRate
+        expr: rate(kube_pod_container_status_restarts_total[15m]) * 60 * 15 > 5
+        for: 0m
+        labels:
+          severity: warning
+          component: infrastructure
+          service: kubernetes
+        annotations:
+          summary: "High pod restart rate"
+          description: "Pod {{ $labels.pod }} in namespace {{ $labels.namespace }} is restarting frequently"
+
+      # PersistentVolume full
+      - alert: PrismForgePersistentVolumeUsageHigh
+        expr: kubelet_volume_stats_used_bytes / kubelet_volume_stats_capacity_bytes > 0.8
+        for: 5m
+        labels:
+          severity: warning
+          component: infrastructure
+          service: kubernetes
+        annotations:
+          summary: "PersistentVolume usage is high"
+          description: "PersistentVolume {{ $labels.persistentvolumeclaim }} usage is {{ $value | humanizePercentage }}"
+
+  - name: prismforge.external
+    rules:
+      # Website is down (blackbox monitoring)
+      - alert: PrismForgeWebsiteDown
+        expr: probe_success{job="blackbox-http"} == 0
+        for: 2m
+        labels:
+          severity: critical
+          component: external
+          service: website
+        annotations:
+          summary: "PrismForge AI website is down"
+          description: "Website {{ $labels.instance }} is not responding to HTTP requests"
+          runbook_url: "https://docs.prismforge-ai.example.com/runbooks/website-down"
+
+      # High website response time
+      - alert: PrismForgeWebsiteSlowResponse
+        expr: probe_duration_seconds{job="blackbox-http"} > 5
+        for: 5m
+        labels:
+          severity: warning
+          component: external
+          service: website
+        annotations:
+          summary: "PrismForge AI website is slow"
+          description: "Website {{ $labels.instance }} response time is {{ $value }}s"
+
+      # SSL certificate expiring
+      - alert: PrismForgeSSLCertificateExpiringSoon
+        expr: probe_ssl_earliest_cert_expiry - time() < 86400 * 30 # 30 days
+        for: 0m
+        labels:
+          severity: warning
+          component: external
+          service: ssl
+        annotations:
+          summary: "SSL certificate expiring soon"
+          description: "SSL certificate for {{ $labels.instance }} expires in {{ $value | humanizeDuration }}"
+
+  - name: prismforge.business
+    rules:
+      # Low user activity
+      - alert: PrismForgeLowUserActivity
+        expr: rate(http_requests_total{job="prismforge-ai-app",endpoint="/api/user"}[1h]) < 1
+        for: 1h
+        labels:
+          severity: warning
+          component: business
+          service: prismforge-ai
+        annotations:
+          summary: "Low user activity detected"
+          description: "User activity is {{ $value }} requests per second over the last hour"
+
+      # High API error rate
+      - alert: PrismForgeAPIHighErrorRate
+        expr: (rate(http_requests_total{job="prismforge-ai-app",endpoint=~"/api/.*",status=~"5.."}[10m]) / rate(http_requests_total{job="prismforge-ai-app",endpoint=~"/api/.*"}[10m])) > 0.1
+        for: 10m
+        labels:
+          severity: critical
+          component: api
+          service: prismforge-ai
+        annotations:
+          summary: "High API error rate"
+          description: "API error rate is {{ $value | humanizePercentage }}"
+
+      # Document processing failures
+      - alert: PrismForgeDocumentProcessingFailures
+        expr: rate(prismforge_document_processing_failures_total[10m]) > 0.1
+        for: 10m
+        labels:
+          severity: warning
+          component: processing
+          service: prismforge-ai
+        annotations:
+          summary: "High document processing failure rate"
+          description: "Document processing failure rate is {{ $value }} failures per second"

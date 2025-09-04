@@ -1,0 +1,259 @@
+# Alertmanager configuration for PrismForge AI Enterprise
+global:
+  smtp_smarthost: 'smtp.gmail.com:587'
+  smtp_from: 'alerts@prismforge-ai.example.com'
+  smtp_auth_username: 'alerts@prismforge-ai.example.com'
+  smtp_auth_password: 'your-app-password'
+  smtp_require_tls: true
+  
+  slack_api_url: 'https://hooks.slack.com/services/YOUR/SLACK/WEBHOOK'
+  
+  pagerduty_url: 'https://events.pagerduty.com/v2/enqueue'
+
+# Route configuration
+route:
+  group_by: ['alertname', 'cluster', 'service']
+  group_wait: 30s
+  group_interval: 5m
+  repeat_interval: 12h
+  receiver: 'default-receiver'
+  
+  routes:
+    # Critical alerts go to PagerDuty and Slack immediately
+    - match:
+        severity: critical
+      receiver: 'critical-alerts'
+      group_wait: 10s
+      repeat_interval: 5m
+      continue: true
+    
+    # Database alerts
+    - match:
+        component: database
+      receiver: 'database-team'
+      group_by: ['alertname', 'component']
+      continue: true
+    
+    # Infrastructure alerts
+    - match:
+        component: infrastructure
+      receiver: 'platform-team'
+      group_by: ['alertname', 'component']
+      continue: true
+    
+    # Application alerts
+    - match:
+        component: application
+      receiver: 'dev-team'
+      group_by: ['alertname', 'component']
+      continue: true
+    
+    # Business alerts
+    - match:
+        component: business
+      receiver: 'business-team'
+      group_by: ['alertname', 'component']
+      continue: true
+    
+    # Maintenance window - silence non-critical alerts
+    - match:
+        maintenance: 'true'
+      receiver: 'null'
+      group_wait: 0s
+      repeat_interval: 1h
+
+# Inhibition rules to prevent alert spam
+inhibit_rules:
+  # If application is down, don't alert on high response time or error rate
+  - source_match:
+      alertname: PrismForgeApplicationDown
+    target_match:
+      alertname: PrismForgeHighResponseTime
+    equal: ['instance']
+  
+  - source_match:
+      alertname: PrismForgeApplicationDown
+    target_match:
+      alertname: PrismForgeHighErrorRate
+    equal: ['instance']
+  
+  # If database is down, don't alert on related database metrics
+  - source_match:
+      alertname: PrismForgePostgreSQLDown
+    target_match_re:
+      alertname: PrismForgePostgreSQL.*
+    equal: ['instance']
+  
+  # If Redis is down, don't alert on Redis metrics
+  - source_match:
+      alertname: PrismForgeRedisDown
+    target_match_re:
+      alertname: PrismForgeRedis.*
+    equal: ['instance']
+  
+  # If website is down, don't alert on slow response
+  - source_match:
+      alertname: PrismForgeWebsiteDown
+    target_match:
+      alertname: PrismForgeWebsiteSlowResponse
+    equal: ['instance']
+
+# Receiver definitions
+receivers:
+  # Default receiver for unmatched alerts
+  - name: 'default-receiver'
+    email_configs:
+      - to: 'ops-team@prismforge-ai.example.com'
+        subject: 'PrismForge AI Alert: {{ .GroupLabels.alertname }}'
+        body: |
+          {{ range .Alerts }}
+          Alert: {{ .Annotations.summary }}
+          Description: {{ .Annotations.description }}
+          Labels:
+          {{ range .Labels.SortedPairs }}  {{ .Name }}: {{ .Value }}
+          {{ end }}
+          {{ end }}
+        headers:
+          priority: 'normal'
+  
+  # Critical alerts - immediate notification
+  - name: 'critical-alerts'
+    pagerduty_configs:
+      - routing_key: 'YOUR_PAGERDUTY_INTEGRATION_KEY'
+        description: 'PrismForge AI Critical Alert: {{ .GroupLabels.alertname }}'
+        details:
+          firing: '{{ .Alerts.Firing | len }}'
+          resolved: '{{ .Alerts.Resolved | len }}'
+          summary: '{{ range .Alerts.Firing }}{{ .Annotations.summary }}{{ end }}'
+        links:
+          - href: 'https://grafana.prismforge-ai.example.com'
+            text: 'Grafana Dashboard'
+          - href: '{{ range .Alerts.Firing }}{{ .Annotations.runbook_url }}{{ end }}'
+            text: 'Runbook'
+    
+    slack_configs:
+      - channel: '#critical-alerts'
+        color: 'danger'
+        title: 'CRITICAL: PrismForge AI Alert'
+        title_link: 'https://grafana.prismforge-ai.example.com'
+        text: |
+          {{ range .Alerts.Firing }}
+          *Alert:* {{ .Annotations.summary }}
+          *Description:* {{ .Annotations.description }}
+          *Severity:* {{ .Labels.severity }}
+          *Component:* {{ .Labels.component }}
+          {{ end }}
+        actions:
+          - type: button
+            text: 'View Dashboard'
+            url: 'https://grafana.prismforge-ai.example.com'
+          - type: button
+            text: 'Runbook'
+            url: '{{ range .Alerts.Firing }}{{ .Annotations.runbook_url }}{{ end }}'
+        fields:
+          - title: 'Environment'
+            value: '{{ .GroupLabels.environment }}'
+            short: true
+          - title: 'Service'
+            value: '{{ .GroupLabels.service }}'
+            short: true
+  
+  # Database team alerts
+  - name: 'database-team'
+    email_configs:
+      - to: 'database-team@prismforge-ai.example.com'
+        subject: 'Database Alert: {{ .GroupLabels.alertname }}'
+        body: |
+          Database alert fired for PrismForge AI:
+          
+          {{ range .Alerts }}
+          Alert: {{ .Annotations.summary }}
+          Description: {{ .Annotations.description }}
+          Severity: {{ .Labels.severity }}
+          Instance: {{ .Labels.instance }}
+          {{ end }}
+    
+    slack_configs:
+      - channel: '#database-alerts'
+        color: 'warning'
+        title: 'Database Alert: {{ .GroupLabels.alertname }}'
+        text: |
+          {{ range .Alerts.Firing }}
+          *Description:* {{ .Annotations.description }}
+          *Instance:* {{ .Labels.instance }}
+          {{ end }}
+  
+  # Platform team alerts
+  - name: 'platform-team'
+    email_configs:
+      - to: 'platform-team@prismforge-ai.example.com'
+        subject: 'Infrastructure Alert: {{ .GroupLabels.alertname }}'
+        body: |
+          Infrastructure alert fired for PrismForge AI:
+          
+          {{ range .Alerts }}
+          Alert: {{ .Annotations.summary }}
+          Description: {{ .Annotations.description }}
+          Severity: {{ .Labels.severity }}
+          Node: {{ .Labels.node }}{{ .Labels.instance }}
+          {{ end }}
+    
+    slack_configs:
+      - channel: '#platform-alerts'
+        color: 'warning'
+        title: 'Infrastructure Alert: {{ .GroupLabels.alertname }}'
+        text: |
+          {{ range .Alerts.Firing }}
+          *Description:* {{ .Annotations.description }}
+          *Node:* {{ .Labels.node }}{{ .Labels.instance }}
+          {{ end }}
+  
+  # Development team alerts
+  - name: 'dev-team'
+    email_configs:
+      - to: 'dev-team@prismforge-ai.example.com'
+        subject: 'Application Alert: {{ .GroupLabels.alertname }}'
+        body: |
+          Application alert fired for PrismForge AI:
+          
+          {{ range .Alerts }}
+          Alert: {{ .Annotations.summary }}
+          Description: {{ .Annotations.description }}
+          Severity: {{ .Labels.severity }}
+          Instance: {{ .Labels.instance }}
+          {{ end }}
+    
+    slack_configs:
+      - channel: '#dev-alerts'
+        color: 'warning'
+        title: 'Application Alert: {{ .GroupLabels.alertname }}'
+        text: |
+          {{ range .Alerts.Firing }}
+          *Description:* {{ .Annotations.description }}
+          *Instance:* {{ .Labels.instance }}
+          {{ end }}
+        actions:
+          - type: button
+            text: 'View Logs'
+            url: 'https://logs.prismforge-ai.example.com'
+  
+  # Business team alerts
+  - name: 'business-team'
+    email_configs:
+      - to: 'business-team@prismforge-ai.example.com'
+        subject: 'Business Metric Alert: {{ .GroupLabels.alertname }}'
+        body: |
+          Business metric alert fired for PrismForge AI:
+          
+          {{ range .Alerts }}
+          Alert: {{ .Annotations.summary }}
+          Description: {{ .Annotations.description }}
+          Severity: {{ .Labels.severity }}
+          {{ end }}
+  
+  # Null receiver to discard alerts during maintenance
+  - name: 'null'
+
+# Templates for custom notification formatting
+templates:
+  - '/etc/alertmanager/templates/*.tmpl'
