@@ -1,0 +1,1719 @@
+[
+  {
+    "children": [
+      {
+        "children": [
+          {
+            "name": "Stitch Design",
+            "type": "FRAME",
+            "absoluteBoundingBox": {
+              "x": -2165.0,
+              "y": -1136.0,
+              "width": 1280.0,
+              "height": 1686.0
+            },
+            "children": [
+              {
+                "name": "Depth 0, Frame 0",
+                "type": "FRAME",
+                "absoluteBoundingBox": {
+                  "x": -2165.0,
+                  "y": -1136.0,
+                  "width": 1280.0,
+                  "height": 1686.0
+                },
+                "children": [
+                  {
+                    "name": "Depth 1, Frame 0",
+                    "type": "FRAME",
+                    "absoluteBoundingBox": {
+                      "x": -2165.0,
+                      "y": -1136.0,
+                      "width": 1280.0,
+                      "height": 1686.0
+                    },
+                    "children": [
+                      {
+                        "name": "Depth 2, Frame 0",
+                        "type": "FRAME",
+                        "absoluteBoundingBox": {
+                          "x": -2165.0,
+                          "y": -1136.0,
+                          "width": 1280.0,
+                          "height": 65.0
+                        },
+                        "children": [
+                          {
+                            "name": "Depth 3, Frame 0",
+                            "type": "FRAME",
+                            "absoluteBoundingBox": {
+                              "x": -2125.0,
+                              "y": -1115.5,
+                              "width": 156.0,
+                              "height": 23.0
+                            },
+                            "children": [
+                              {
+                                "name": "Depth 4, Frame 0",
+                                "type": "FRAME",
+                                "absoluteBoundingBox": {
+                                  "x": -2125.0,
+                                  "y": -1112.0,
+                                  "width": 16.0,
+                                  "height": 16.0
+                                },
+                                "children": [
+                                  {
+                                    "name": "Depth 5, Frame 0",
+                                    "type": "FRAME",
+                                    "absoluteBoundingBox": {
+                                      "x": -2125.0,
+                                      "y": -1112.0,
+                                      "width": 16.0,
+                                      "height": 16.0
+                                    },
+                                    "children": [
+                                      {
+                                        "name": "Depth 6, Frame 0",
+                                        "type": "FRAME",
+                                        "absoluteBoundingBox": null,
+                                        "children": []
+                                      }
+                                    ]
+                                  }
+                                ]
+                              },
+                              {
+                                "name": "Depth 4, Frame 1",
+                                "type": "FRAME",
+                                "absoluteBoundingBox": {
+                                  "x": -2093.0,
+                                  "y": -1115.5,
+                                  "width": 124.0,
+                                  "height": 23.0
+                                },
+                                "children": [
+                                  {
+                                    "name": "PrismForge AI",
+                                    "type": "TEXT",
+                                    "absoluteBoundingBox": {
+                                      "x": -2093.0,
+                                      "y": -1115.5,
+                                      "width": 124.0,
+                                      "height": 23.0
+                                    },
+                                    "children": [],
+                                    "characters": "PrismForge AI",
+                                    "style": {
+                                      "fontFamily": "Inter",
+                                      "fontPostScriptName": "Inter-Bold",
+                                      "fontStyle": "Bold",
+                                      "fontWeight": 700,
+                                      "textAutoResize": "WIDTH_AND_HEIGHT",
+                                      "fontSize": 18.0,
+                                      "textAlignHorizontal": "LEFT",
+                                      "textAlignVertical": "TOP",
+                                      "letterSpacing": 0.0,
+                                      "lineHeightPx": 23.0,
+                                      "lineHeightPercent": 105.5816421508789,
+                                      "lineHeightPercentFontSize": 127.77777862548828,
+                                      "lineHeightUnit": "PIXELS"
+                                    }
+                                  }
+                                ]
+                              }
+                            ]
+                          },
+                          {
+                            "name": "Depth 3, Frame 1",
+                            "type": "FRAME",
+                            "absoluteBoundingBox": {
+                              "x": -1969.0,
+                              "y": -1124.0,
+                              "width": 1044.0,
+                              "height": 40.0
+                            },
+                            "children": [
+                              {
+                                "name": "Depth 4, Frame 0",
+                                "type": "FRAME",
+                                "absoluteBoundingBox": {
+                                  "x": -1252.0,
+                                  "y": -1124.0,
+                                  "width": 255.0,
+                                  "height": 40.0
+                                },
+                                "children": [
+                                  {
+                                    "name": "Depth 5, Frame 0",
+                                    "type": "FRAME",
+                                    "absoluteBoundingBox": {
+                                      "x": -1252.0,
+                                      "y": -1114.5,
+                                      "width": 74.0,
+                                      "height": 21.0
+                                    },
+                                    "children": [
+                                      {
+                                        "name": "Dashboard",
+                                        "type": "TEXT",
+                                        "absoluteBoundingBox": {
+                                          "x": -1252.0,
+                                          "y": -1114.5,
+                                          "width": 74.0,
+                                          "height": 21.0
+                                        },
+                                        "children": [],
+                                        "characters": "Dashboard",
+                                        "style": {
+                                          "fontFamily": "Inter",
+                                          "fontPostScriptName": "Inter-Medium",
+                                          "fontStyle": "Medium",
+                                          "fontWeight": 500,
+                                          "textAutoResize": "WIDTH_AND_HEIGHT",
+                                          "fontSize": 14.0,
+                                          "textAlignHorizontal": "LEFT",
+                                          "textAlignVertical": "TOP",
+                                          "letterSpacing": 0.0,
+                                          "lineHeightPx": 21.0,
+                                          "lineHeightPercent": 123.94366455078125,
+                                          "lineHeightPercentFontSize": 150.0,
+                                          "lineHeightUnit": "PIXELS"
+                                        }
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "name": "Depth 5, Frame 1",
+                                    "type": "FRAME",
+                                    "absoluteBoundingBox": {
+                                      "x": -1142.0,
+                                      "y": -1114.5,
+                                      "width": 53.0,
+                                      "height": 21.0
+                                    },
+                                    "children": [
+                                      {
+                                        "name": "Reports",
+                                        "type": "TEXT",
+                                        "absoluteBoundingBox": {
+                                          "x": -1142.0,
+                                          "y": -1114.5,
+                                          "width": 53.0,
+                                          "height": 21.0
+                                        },
+                                        "children": [],
+                                        "characters": "Reports",
+                                        "style": {
+                                          "fontFamily": "Inter",
+                                          "fontPostScriptName": "Inter-Medium",
+                                          "fontStyle": "Medium",
+                                          "fontWeight": 500,
+                                          "textAutoResize": "WIDTH_AND_HEIGHT",
+                                          "fontSize": 14.0,
+                                          "textAlignHorizontal": "LEFT",
+                                          "textAlignVertical": "TOP",
+                                          "letterSpacing": 0.0,
+                                          "lineHeightPx": 21.0,
+                                          "lineHeightPercent": 123.94366455078125,
+                                          "lineHeightPercentFontSize": 150.0,
+                                          "lineHeightUnit": "PIXELS"
+                                        }
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "name": "Depth 5, Frame 2",
+                                    "type": "FRAME",
+                                    "absoluteBoundingBox": {
+                                      "x": -1053.0,
+                                      "y": -1114.5,
+                                      "width": 56.0,
+                                      "height": 21.0
+                                    },
+                                    "children": [
+                                      {
+                                        "name": "Settings",
+                                        "type": "TEXT",
+                                        "absoluteBoundingBox": {
+                                          "x": -1053.0,
+                                          "y": -1114.5,
+                                          "width": 56.0,
+                                          "height": 21.0
+                                        },
+                                        "children": [],
+                                        "characters": "Settings",
+                                        "style": {
+                                          "fontFamily": "Inter",
+                                          "fontPostScriptName": "Inter-Medium",
+                                          "fontStyle": "Medium",
+                                          "fontWeight": 500,
+                                          "textAutoResize": "WIDTH_AND_HEIGHT",
+                                          "fontSize": 14.0,
+                                          "textAlignHorizontal": "LEFT",
+                                          "textAlignVertical": "TOP",
+                                          "letterSpacing": 0.0,
+                                          "lineHeightPx": 21.0,
+                                          "lineHeightPercent": 123.94366455078125,
+                                          "lineHeightPercentFontSize": 150.0,
+                                          "lineHeightUnit": "PIXELS"
+                                        }
+                                      }
+                                    ]
+                                  }
+                                ]
+                              },
+                              {
+                                "name": "Depth 4, Frame 1",
+                                "type": "FRAME",
+                                "absoluteBoundingBox": {
+                                  "x": -965.0,
+                                  "y": -1124.0,
+                                  "width": 40.0,
+                                  "height": 40.0
+                                },
+                                "children": []
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "name": "Depth 2, Frame 1",
+                        "type": "FRAME",
+                        "absoluteBoundingBox": {
+                          "x": -2165.0,
+                          "y": -1071.0,
+                          "width": 1280.0,
+                          "height": 1621.0
+                        },
+                        "children": [
+                          {
+                            "name": "Depth 3, Frame 0",
+                            "type": "FRAME",
+                            "absoluteBoundingBox": {
+                              "x": -2005.0,
+                              "y": -1051.0,
+                              "width": 960.0,
+                              "height": 1581.0
+                            },
+                            "children": [
+                              {
+                                "name": "Depth 4, Frame 0",
+                                "type": "FRAME",
+                                "absoluteBoundingBox": {
+                                  "x": -2005.0,
+                                  "y": -1051.0,
+                                  "width": 960.0,
+                                  "height": 72.0
+                                },
+                                "children": [
+                                  {
+                                    "name": "Depth 5, Frame 0",
+                                    "type": "FRAME",
+                                    "absoluteBoundingBox": {
+                                      "x": -1989.0,
+                                      "y": -1035.0,
+                                      "width": 454.0,
+                                      "height": 40.0
+                                    },
+                                    "children": [
+                                      {
+                                        "name": "Validation Run: Project Alpha",
+                                        "type": "TEXT",
+                                        "absoluteBoundingBox": {
+                                          "x": -1989.0,
+                                          "y": -1035.0,
+                                          "width": 454.0,
+                                          "height": 40.0
+                                        },
+                                        "children": [],
+                                        "characters": "Validation Run: Project Alpha",
+                                        "style": {
+                                          "fontFamily": "Inter",
+                                          "fontPostScriptName": "Inter-Bold",
+                                          "fontStyle": "Bold",
+                                          "fontWeight": 700,
+                                          "textAutoResize": "WIDTH_AND_HEIGHT",
+                                          "fontSize": 32.0,
+                                          "textAlignHorizontal": "LEFT",
+                                          "textAlignVertical": "TOP",
+                                          "letterSpacing": 0.0,
+                                          "lineHeightPx": 40.0,
+                                          "lineHeightPercent": 103.28638458251953,
+                                          "lineHeightPercentFontSize": 125.0,
+                                          "lineHeightUnit": "PIXELS"
+                                        }
+                                      }
+                                    ]
+                                  }
+                                ]
+                              },
+                              {
+                                "name": "Depth 4, Frame 1",
+                                "type": "FRAME",
+                                "absoluteBoundingBox": {
+                                  "x": -2005.0,
+                                  "y": -979.0,
+                                  "width": 960.0,
+                                  "height": 60.0
+                                },
+                                "children": [
+                                  {
+                                    "name": "Agent Status",
+                                    "type": "TEXT",
+                                    "absoluteBoundingBox": {
+                                      "x": -1989.0,
+                                      "y": -959.0,
+                                      "width": 928.0,
+                                      "height": 28.0
+                                    },
+                                    "children": [],
+                                    "characters": "Agent Status",
+                                    "style": {
+                                      "fontFamily": "Inter",
+                                      "fontPostScriptName": "Inter-Bold",
+                                      "fontStyle": "Bold",
+                                      "fontWeight": 700,
+                                      "textAutoResize": "HEIGHT",
+                                      "fontSize": 22.0,
+                                      "textAlignHorizontal": "LEFT",
+                                      "textAlignVertical": "TOP",
+                                      "letterSpacing": 0.0,
+                                      "lineHeightPx": 28.0,
+                                      "lineHeightPercent": 105.16431427001953,
+                                      "lineHeightPercentFontSize": 127.2727279663086,
+                                      "lineHeightUnit": "PIXELS"
+                                    }
+                                  }
+                                ]
+                              },
+                              {
+                                "name": "Depth 4, Frame 2",
+                                "type": "FRAME",
+                                "absoluteBoundingBox": {
+                                  "x": -2005.0,
+                                  "y": -919.0,
+                                  "width": 960.0,
+                                  "height": 203.0
+                                },
+                                "children": [
+                                  {
+                                    "name": "Depth 5, Frame 0",
+                                    "type": "FRAME",
+                                    "absoluteBoundingBox": {
+                                      "x": -1989.0,
+                                      "y": -903.0,
+                                      "width": 928.0,
+                                      "height": 171.0
+                                    },
+                                    "children": [
+                                      {
+                                        "name": "Depth 6, Frame 0",
+                                        "type": "FRAME",
+                                        "absoluteBoundingBox": {
+                                          "x": -1989.0,
+                                          "y": -903.0,
+                                          "width": 608.0,
+                                          "height": 171.0
+                                        },
+                                        "children": [
+                                          {
+                                            "name": "Depth 7, Frame 0",
+                                            "type": "FRAME",
+                                            "absoluteBoundingBox": {
+                                              "x": -1989.0,
+                                              "y": -903.0,
+                                              "width": 608.0,
+                                              "height": 20.0
+                                            },
+                                            "children": [
+                                              {
+                                                "name": "Skeptic Agent",
+                                                "type": "TEXT",
+                                                "absoluteBoundingBox": {
+                                                  "x": -1989.0,
+                                                  "y": -903.0,
+                                                  "width": 608.0,
+                                                  "height": 20.0
+                                                },
+                                                "children": [],
+                                                "characters": "Skeptic Agent",
+                                                "style": {
+                                                  "fontFamily": "Inter",
+                                                  "fontPostScriptName": "Inter-Bold",
+                                                  "fontStyle": "Bold",
+                                                  "fontWeight": 700,
+                                                  "textAutoResize": "HEIGHT",
+                                                  "fontSize": 16.0,
+                                                  "textAlignHorizontal": "LEFT",
+                                                  "textAlignVertical": "TOP",
+                                                  "letterSpacing": 0.0,
+                                                  "lineHeightPx": 20.0,
+                                                  "lineHeightPercent": 103.28638458251953,
+                                                  "lineHeightPercentFontSize": 125.0,
+                                                  "lineHeightUnit": "PIXELS"
+                                                }
+                                              }
+                                            ]
+                                          },
+                                          {
+                                            "name": "Depth 7, Frame 1",
+                                            "type": "FRAME",
+                                            "absoluteBoundingBox": {
+                                              "x": -1989.0,
+                                              "y": -879.0,
+                                              "width": 608.0,
+                                              "height": 21.0
+                                            },
+                                            "children": [
+                                              {
+                                                "name": "Status: Idle",
+                                                "type": "TEXT",
+                                                "absoluteBoundingBox": {
+                                                  "x": -1989.0,
+                                                  "y": -879.0,
+                                                  "width": 608.0,
+                                                  "height": 21.0
+                                                },
+                                                "children": [],
+                                                "characters": "Status: Idle",
+                                                "style": {
+                                                  "fontFamily": "Inter",
+                                                  "fontPostScriptName": null,
+                                                  "fontStyle": "Regular",
+                                                  "fontWeight": 400,
+                                                  "textAutoResize": "HEIGHT",
+                                                  "fontSize": 14.0,
+                                                  "textAlignHorizontal": "LEFT",
+                                                  "textAlignVertical": "TOP",
+                                                  "letterSpacing": 0.0,
+                                                  "lineHeightPx": 21.0,
+                                                  "lineHeightPercent": 123.94366455078125,
+                                                  "lineHeightPercentFontSize": 150.0,
+                                                  "lineHeightUnit": "PIXELS"
+                                                }
+                                              }
+                                            ]
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "name": "Depth 6, Frame 1",
+                                        "type": "FRAME",
+                                        "absoluteBoundingBox": {
+                                          "x": -1381.0,
+                                          "y": -903.0,
+                                          "width": 320.0,
+                                          "height": 171.0
+                                        },
+                                        "children": []
+                                      }
+                                    ]
+                                  }
+                                ]
+                              },
+                              {
+                                "name": "Depth 4, Frame 3",
+                                "type": "FRAME",
+                                "absoluteBoundingBox": {
+                                  "x": -2005.0,
+                                  "y": -716.0,
+                                  "width": 960.0,
+                                  "height": 203.0
+                                },
+                                "children": [
+                                  {
+                                    "name": "Depth 5, Frame 0",
+                                    "type": "FRAME",
+                                    "absoluteBoundingBox": {
+                                      "x": -1989.0,
+                                      "y": -700.0,
+                                      "width": 928.0,
+                                      "height": 171.0
+                                    },
+                                    "children": [
+                                      {
+                                        "name": "Depth 6, Frame 0",
+                                        "type": "FRAME",
+                                        "absoluteBoundingBox": {
+                                          "x": -1989.0,
+                                          "y": -700.0,
+                                          "width": 608.0,
+                                          "height": 171.0
+                                        },
+                                        "children": [
+                                          {
+                                            "name": "Depth 7, Frame 0",
+                                            "type": "FRAME",
+                                            "absoluteBoundingBox": {
+                                              "x": -1989.0,
+                                              "y": -700.0,
+                                              "width": 608.0,
+                                              "height": 20.0
+                                            },
+                                            "children": [
+                                              {
+                                                "name": "Validator Agent",
+                                                "type": "TEXT",
+                                                "absoluteBoundingBox": {
+                                                  "x": -1989.0,
+                                                  "y": -700.0,
+                                                  "width": 608.0,
+                                                  "height": 20.0
+                                                },
+                                                "children": [],
+                                                "characters": "Validator Agent",
+                                                "style": {
+                                                  "fontFamily": "Inter",
+                                                  "fontPostScriptName": "Inter-Bold",
+                                                  "fontStyle": "Bold",
+                                                  "fontWeight": 700,
+                                                  "textAutoResize": "HEIGHT",
+                                                  "fontSize": 16.0,
+                                                  "textAlignHorizontal": "LEFT",
+                                                  "textAlignVertical": "TOP",
+                                                  "letterSpacing": 0.0,
+                                                  "lineHeightPx": 20.0,
+                                                  "lineHeightPercent": 103.28638458251953,
+                                                  "lineHeightPercentFontSize": 125.0,
+                                                  "lineHeightUnit": "PIXELS"
+                                                }
+                                              }
+                                            ]
+                                          },
+                                          {
+                                            "name": "Depth 7, Frame 1",
+                                            "type": "FRAME",
+                                            "absoluteBoundingBox": {
+                                              "x": -1989.0,
+                                              "y": -676.0,
+                                              "width": 608.0,
+                                              "height": 21.0
+                                            },
+                                            "children": [
+                                              {
+                                                "name": "Status: Idle",
+                                                "type": "TEXT",
+                                                "absoluteBoundingBox": {
+                                                  "x": -1989.0,
+                                                  "y": -676.0,
+                                                  "width": 608.0,
+                                                  "height": 21.0
+                                                },
+                                                "children": [],
+                                                "characters": "Status: Idle",
+                                                "style": {
+                                                  "fontFamily": "Inter",
+                                                  "fontPostScriptName": null,
+                                                  "fontStyle": "Regular",
+                                                  "fontWeight": 400,
+                                                  "textAutoResize": "HEIGHT",
+                                                  "fontSize": 14.0,
+                                                  "textAlignHorizontal": "LEFT",
+                                                  "textAlignVertical": "TOP",
+                                                  "letterSpacing": 0.0,
+                                                  "lineHeightPx": 21.0,
+                                                  "lineHeightPercent": 123.94366455078125,
+                                                  "lineHeightPercentFontSize": 150.0,
+                                                  "lineHeightUnit": "PIXELS"
+                                                }
+                                              }
+                                            ]
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "name": "Depth 6, Frame 1",
+                                        "type": "FRAME",
+                                        "absoluteBoundingBox": {
+                                          "x": -1381.0,
+                                          "y": -700.0,
+                                          "width": 320.0,
+                                          "height": 171.0
+                                        },
+                                        "children": []
+                                      }
+                                    ]
+                                  }
+                                ]
+                              },
+                              {
+                                "name": "Depth 4, Frame 4",
+                                "type": "FRAME",
+                                "absoluteBoundingBox": {
+                                  "x": -2005.0,
+                                  "y": -513.0,
+                                  "width": 960.0,
+                                  "height": 60.0
+                                },
+                                "children": [
+                                  {
+                                    "name": "Token Budget",
+                                    "type": "TEXT",
+                                    "absoluteBoundingBox": {
+                                      "x": -1989.0,
+                                      "y": -493.0,
+                                      "width": 928.0,
+                                      "height": 28.0
+                                    },
+                                    "children": [],
+                                    "characters": "Token Budget",
+                                    "style": {
+                                      "fontFamily": "Inter",
+                                      "fontPostScriptName": "Inter-Bold",
+                                      "fontStyle": "Bold",
+                                      "fontWeight": 700,
+                                      "textAutoResize": "HEIGHT",
+                                      "fontSize": 22.0,
+                                      "textAlignHorizontal": "LEFT",
+                                      "textAlignVertical": "TOP",
+                                      "letterSpacing": 0.0,
+                                      "lineHeightPx": 28.0,
+                                      "lineHeightPercent": 105.16431427001953,
+                                      "lineHeightPercentFontSize": 127.2727279663086,
+                                      "lineHeightUnit": "PIXELS"
+                                    }
+                                  }
+                                ]
+                              },
+                              {
+                                "name": "Depth 4, Frame 5",
+                                "type": "FRAME",
+                                "absoluteBoundingBox": {
+                                  "x": -2005.0,
+                                  "y": -453.0,
+                                  "width": 960.0,
+                                  "height": 76.0
+                                },
+                                "children": [
+                                  {
+                                    "name": "Depth 5, Frame 0",
+                                    "type": "FRAME",
+                                    "absoluteBoundingBox": {
+                                      "x": -1989.0,
+                                      "y": -437.0,
+                                      "width": 928.0,
+                                      "height": 24.0
+                                    },
+                                    "children": [
+                                      {
+                                        "name": "Depth 6, Frame 0",
+                                        "type": "FRAME",
+                                        "absoluteBoundingBox": {
+                                          "x": -1989.0,
+                                          "y": -437.0,
+                                          "width": 167.0,
+                                          "height": 24.0
+                                        },
+                                        "children": [
+                                          {
+                                            "name": "Skeptic Agent Budget",
+                                            "type": "TEXT",
+                                            "absoluteBoundingBox": {
+                                              "x": -1989.0,
+                                              "y": -437.0,
+                                              "width": 167.0,
+                                              "height": 24.0
+                                            },
+                                            "children": [],
+                                            "characters": "Skeptic Agent Budget",
+                                            "style": {
+                                              "fontFamily": "Inter",
+                                              "fontPostScriptName": "Inter-Medium",
+                                              "fontStyle": "Medium",
+                                              "fontWeight": 500,
+                                              "textAutoResize": "WIDTH_AND_HEIGHT",
+                                              "fontSize": 16.0,
+                                              "textAlignHorizontal": "LEFT",
+                                              "textAlignVertical": "TOP",
+                                              "letterSpacing": 0.0,
+                                              "lineHeightPx": 24.0,
+                                              "lineHeightPercent": 123.94366455078125,
+                                              "lineHeightPercentFontSize": 150.0,
+                                              "lineHeightUnit": "PIXELS"
+                                            }
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "name": "Depth 6, Frame 1",
+                                        "type": "FRAME",
+                                        "absoluteBoundingBox": {
+                                          "x": -1088.0,
+                                          "y": -437.0,
+                                          "width": 27.0,
+                                          "height": 24.0
+                                        },
+                                        "children": [
+                                          {
+                                            "name": "35K",
+                                            "type": "TEXT",
+                                            "absoluteBoundingBox": {
+                                              "x": -1088.0,
+                                              "y": -437.0,
+                                              "width": 27.0,
+                                              "height": 21.0
+                                            },
+                                            "children": [],
+                                            "characters": "35K",
+                                            "style": {
+                                              "fontFamily": "Inter",
+                                              "fontPostScriptName": null,
+                                              "fontStyle": "Regular",
+                                              "fontWeight": 400,
+                                              "textAutoResize": "WIDTH_AND_HEIGHT",
+                                              "fontSize": 14.0,
+                                              "textAlignHorizontal": "LEFT",
+                                              "textAlignVertical": "TOP",
+                                              "letterSpacing": 0.0,
+                                              "lineHeightPx": 21.0,
+                                              "lineHeightPercent": 123.94366455078125,
+                                              "lineHeightPercentFontSize": 150.0,
+                                              "lineHeightUnit": "PIXELS"
+                                            }
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "name": "Depth 5, Frame 1",
+                                    "type": "FRAME",
+                                    "absoluteBoundingBox": {
+                                      "x": -1989.0,
+                                      "y": -401.0,
+                                      "width": 928.0,
+                                      "height": 8.0
+                                    },
+                                    "children": [
+                                      {
+                                        "name": "Depth 6, Frame 0",
+                                        "type": "FRAME",
+                                        "absoluteBoundingBox": {
+                                          "x": -1989.0,
+                                          "y": -401.0,
+                                          "width": 325.0,
+                                          "height": 8.0
+                                        },
+                                        "children": []
+                                      }
+                                    ]
+                                  }
+                                ]
+                              },
+                              {
+                                "name": "Depth 4, Frame 6",
+                                "type": "FRAME",
+                                "absoluteBoundingBox": {
+                                  "x": -2005.0,
+                                  "y": -377.0,
+                                  "width": 960.0,
+                                  "height": 76.0
+                                },
+                                "children": [
+                                  {
+                                    "name": "Depth 5, Frame 0",
+                                    "type": "FRAME",
+                                    "absoluteBoundingBox": {
+                                      "x": -1989.0,
+                                      "y": -361.0,
+                                      "width": 928.0,
+                                      "height": 24.0
+                                    },
+                                    "children": [
+                                      {
+                                        "name": "Depth 6, Frame 0",
+                                        "type": "FRAME",
+                                        "absoluteBoundingBox": {
+                                          "x": -1989.0,
+                                          "y": -361.0,
+                                          "width": 178.0,
+                                          "height": 24.0
+                                        },
+                                        "children": [
+                                          {
+                                            "name": "Validator Agent Budget",
+                                            "type": "TEXT",
+                                            "absoluteBoundingBox": {
+                                              "x": -1989.0,
+                                              "y": -361.0,
+                                              "width": 178.0,
+                                              "height": 24.0
+                                            },
+                                            "children": [],
+                                            "characters": "Validator Agent Budget",
+                                            "style": {
+                                              "fontFamily": "Inter",
+                                              "fontPostScriptName": "Inter-Medium",
+                                              "fontStyle": "Medium",
+                                              "fontWeight": 500,
+                                              "textAutoResize": "WIDTH_AND_HEIGHT",
+                                              "fontSize": 16.0,
+                                              "textAlignHorizontal": "LEFT",
+                                              "textAlignVertical": "TOP",
+                                              "letterSpacing": 0.0,
+                                              "lineHeightPx": 24.0,
+                                              "lineHeightPercent": 123.94366455078125,
+                                              "lineHeightPercentFontSize": 150.0,
+                                              "lineHeightUnit": "PIXELS"
+                                            }
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "name": "Depth 6, Frame 1",
+                                        "type": "FRAME",
+                                        "absoluteBoundingBox": {
+                                          "x": -1088.0,
+                                          "y": -361.0,
+                                          "width": 27.0,
+                                          "height": 24.0
+                                        },
+                                        "children": [
+                                          {
+                                            "name": "35K",
+                                            "type": "TEXT",
+                                            "absoluteBoundingBox": {
+                                              "x": -1088.0,
+                                              "y": -361.0,
+                                              "width": 27.0,
+                                              "height": 21.0
+                                            },
+                                            "children": [],
+                                            "characters": "35K",
+                                            "style": {
+                                              "fontFamily": "Inter",
+                                              "fontPostScriptName": null,
+                                              "fontStyle": "Regular",
+                                              "fontWeight": 400,
+                                              "textAutoResize": "WIDTH_AND_HEIGHT",
+                                              "fontSize": 14.0,
+                                              "textAlignHorizontal": "LEFT",
+                                              "textAlignVertical": "TOP",
+                                              "letterSpacing": 0.0,
+                                              "lineHeightPx": 21.0,
+                                              "lineHeightPercent": 123.94366455078125,
+                                              "lineHeightPercentFontSize": 150.0,
+                                              "lineHeightUnit": "PIXELS"
+                                            }
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "name": "Depth 5, Frame 1",
+                                    "type": "FRAME",
+                                    "absoluteBoundingBox": {
+                                      "x": -1989.0,
+                                      "y": -325.0,
+                                      "width": 928.0,
+                                      "height": 8.0
+                                    },
+                                    "children": [
+                                      {
+                                        "name": "Depth 6, Frame 0",
+                                        "type": "FRAME",
+                                        "absoluteBoundingBox": {
+                                          "x": -1989.0,
+                                          "y": -325.0,
+                                          "width": 325.0,
+                                          "height": 8.0
+                                        },
+                                        "children": []
+                                      }
+                                    ]
+                                  }
+                                ]
+                              },
+                              {
+                                "name": "Depth 4, Frame 7",
+                                "type": "FRAME",
+                                "absoluteBoundingBox": {
+                                  "x": -2005.0,
+                                  "y": -301.0,
+                                  "width": 960.0,
+                                  "height": 76.0
+                                },
+                                "children": [
+                                  {
+                                    "name": "Depth 5, Frame 0",
+                                    "type": "FRAME",
+                                    "absoluteBoundingBox": {
+                                      "x": -1989.0,
+                                      "y": -285.0,
+                                      "width": 928.0,
+                                      "height": 24.0
+                                    },
+                                    "children": [
+                                      {
+                                        "name": "Depth 6, Frame 0",
+                                        "type": "FRAME",
+                                        "absoluteBoundingBox": {
+                                          "x": -1989.0,
+                                          "y": -285.0,
+                                          "width": 117.0,
+                                          "height": 24.0
+                                        },
+                                        "children": [
+                                          {
+                                            "name": "System Budget",
+                                            "type": "TEXT",
+                                            "absoluteBoundingBox": {
+                                              "x": -1989.0,
+                                              "y": -285.0,
+                                              "width": 117.0,
+                                              "height": 24.0
+                                            },
+                                            "children": [],
+                                            "characters": "System Budget",
+                                            "style": {
+                                              "fontFamily": "Inter",
+                                              "fontPostScriptName": "Inter-Medium",
+                                              "fontStyle": "Medium",
+                                              "fontWeight": 500,
+                                              "textAutoResize": "WIDTH_AND_HEIGHT",
+                                              "fontSize": 16.0,
+                                              "textAlignHorizontal": "LEFT",
+                                              "textAlignVertical": "TOP",
+                                              "letterSpacing": 0.0,
+                                              "lineHeightPx": 24.0,
+                                              "lineHeightPercent": 123.94366455078125,
+                                              "lineHeightPercentFontSize": 150.0,
+                                              "lineHeightUnit": "PIXELS"
+                                            }
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "name": "Depth 6, Frame 1",
+                                        "type": "FRAME",
+                                        "absoluteBoundingBox": {
+                                          "x": -1086.0,
+                                          "y": -285.0,
+                                          "width": 25.0,
+                                          "height": 24.0
+                                        },
+                                        "children": [
+                                          {
+                                            "name": "10K",
+                                            "type": "TEXT",
+                                            "absoluteBoundingBox": {
+                                              "x": -1086.0,
+                                              "y": -285.0,
+                                              "width": 25.0,
+                                              "height": 21.0
+                                            },
+                                            "children": [],
+                                            "characters": "10K",
+                                            "style": {
+                                              "fontFamily": "Inter",
+                                              "fontPostScriptName": null,
+                                              "fontStyle": "Regular",
+                                              "fontWeight": 400,
+                                              "textAutoResize": "WIDTH_AND_HEIGHT",
+                                              "fontSize": 14.0,
+                                              "textAlignHorizontal": "LEFT",
+                                              "textAlignVertical": "TOP",
+                                              "letterSpacing": 0.0,
+                                              "lineHeightPx": 21.0,
+                                              "lineHeightPercent": 123.94366455078125,
+                                              "lineHeightPercentFontSize": 150.0,
+                                              "lineHeightUnit": "PIXELS"
+                                            }
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "name": "Depth 5, Frame 1",
+                                    "type": "FRAME",
+                                    "absoluteBoundingBox": {
+                                      "x": -1989.0,
+                                      "y": -249.0,
+                                      "width": 928.0,
+                                      "height": 8.0
+                                    },
+                                    "children": [
+                                      {
+                                        "name": "Depth 6, Frame 0",
+                                        "type": "FRAME",
+                                        "absoluteBoundingBox": {
+                                          "x": -1989.0,
+                                          "y": -249.0,
+                                          "width": 93.0,
+                                          "height": 8.0
+                                        },
+                                        "children": []
+                                      }
+                                    ]
+                                  }
+                                ]
+                              },
+                              {
+                                "name": "Depth 4, Frame 8",
+                                "type": "FRAME",
+                                "absoluteBoundingBox": {
+                                  "x": -2005.0,
+                                  "y": -225.0,
+                                  "width": 960.0,
+                                  "height": 60.0
+                                },
+                                "children": [
+                                  {
+                                    "name": "Quality Score",
+                                    "type": "TEXT",
+                                    "absoluteBoundingBox": {
+                                      "x": -1989.0,
+                                      "y": -205.0,
+                                      "width": 928.0,
+                                      "height": 28.0
+                                    },
+                                    "children": [],
+                                    "characters": "Quality Score",
+                                    "style": {
+                                      "fontFamily": "Inter",
+                                      "fontPostScriptName": "Inter-Bold",
+                                      "fontStyle": "Bold",
+                                      "fontWeight": 700,
+                                      "textAutoResize": "HEIGHT",
+                                      "fontSize": 22.0,
+                                      "textAlignHorizontal": "LEFT",
+                                      "textAlignVertical": "TOP",
+                                      "letterSpacing": 0.0,
+                                      "lineHeightPx": 28.0,
+                                      "lineHeightPercent": 105.16431427001953,
+                                      "lineHeightPercentFontSize": 127.2727279663086,
+                                      "lineHeightUnit": "PIXELS"
+                                    }
+                                  }
+                                ]
+                              },
+                              {
+                                "name": "Depth 4, Frame 9",
+                                "type": "FRAME",
+                                "absoluteBoundingBox": {
+                                  "x": -2005.0,
+                                  "y": -165.0,
+                                  "width": 960.0,
+                                  "height": 76.0
+                                },
+                                "children": [
+                                  {
+                                    "name": "Depth 5, Frame 0",
+                                    "type": "FRAME",
+                                    "absoluteBoundingBox": {
+                                      "x": -1989.0,
+                                      "y": -149.0,
+                                      "width": 928.0,
+                                      "height": 24.0
+                                    },
+                                    "children": [
+                                      {
+                                        "name": "Depth 6, Frame 0",
+                                        "type": "FRAME",
+                                        "absoluteBoundingBox": {
+                                          "x": -1989.0,
+                                          "y": -149.0,
+                                          "width": 177.0,
+                                          "height": 24.0
+                                        },
+                                        "children": [
+                                          {
+                                            "name": "Minimum Quality Score",
+                                            "type": "TEXT",
+                                            "absoluteBoundingBox": {
+                                              "x": -1989.0,
+                                              "y": -149.0,
+                                              "width": 177.0,
+                                              "height": 24.0
+                                            },
+                                            "children": [],
+                                            "characters": "Minimum Quality Score",
+                                            "style": {
+                                              "fontFamily": "Inter",
+                                              "fontPostScriptName": "Inter-Medium",
+                                              "fontStyle": "Medium",
+                                              "fontWeight": 500,
+                                              "textAutoResize": "WIDTH_AND_HEIGHT",
+                                              "fontSize": 16.0,
+                                              "textAlignHorizontal": "LEFT",
+                                              "textAlignVertical": "TOP",
+                                              "letterSpacing": 0.0,
+                                              "lineHeightPx": 24.0,
+                                              "lineHeightPercent": 123.94366455078125,
+                                              "lineHeightPercentFontSize": 150.0,
+                                              "lineHeightUnit": "PIXELS"
+                                            }
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "name": "Depth 6, Frame 1",
+                                        "type": "FRAME",
+                                        "absoluteBoundingBox": {
+                                          "x": -1090.0,
+                                          "y": -149.0,
+                                          "width": 29.0,
+                                          "height": 24.0
+                                        },
+                                        "children": [
+                                          {
+                                            "name": "85%",
+                                            "type": "TEXT",
+                                            "absoluteBoundingBox": {
+                                              "x": -1090.0,
+                                              "y": -149.0,
+                                              "width": 29.0,
+                                              "height": 21.0
+                                            },
+                                            "children": [],
+                                            "characters": "85%",
+                                            "style": {
+                                              "fontFamily": "Inter",
+                                              "fontPostScriptName": null,
+                                              "fontStyle": "Regular",
+                                              "fontWeight": 400,
+                                              "textAutoResize": "WIDTH_AND_HEIGHT",
+                                              "fontSize": 14.0,
+                                              "textAlignHorizontal": "LEFT",
+                                              "textAlignVertical": "TOP",
+                                              "letterSpacing": 0.0,
+                                              "lineHeightPx": 21.0,
+                                              "lineHeightPercent": 123.94366455078125,
+                                              "lineHeightPercentFontSize": 150.0,
+                                              "lineHeightUnit": "PIXELS"
+                                            }
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "name": "Depth 5, Frame 1",
+                                    "type": "FRAME",
+                                    "absoluteBoundingBox": {
+                                      "x": -1989.0,
+                                      "y": -113.0,
+                                      "width": 928.0,
+                                      "height": 8.0
+                                    },
+                                    "children": [
+                                      {
+                                        "name": "Depth 6, Frame 0",
+                                        "type": "FRAME",
+                                        "absoluteBoundingBox": {
+                                          "x": -1989.0,
+                                          "y": -113.0,
+                                          "width": 789.0,
+                                          "height": 8.0
+                                        },
+                                        "children": []
+                                      }
+                                    ]
+                                  }
+                                ]
+                              },
+                              {
+                                "name": "Depth 4, Frame 10",
+                                "type": "FRAME",
+                                "absoluteBoundingBox": {
+                                  "x": -2005.0,
+                                  "y": -89.0,
+                                  "width": 960.0,
+                                  "height": 60.0
+                                },
+                                "children": [
+                                  {
+                                    "name": "Findings",
+                                    "type": "TEXT",
+                                    "absoluteBoundingBox": {
+                                      "x": -1989.0,
+                                      "y": -69.0,
+                                      "width": 928.0,
+                                      "height": 28.0
+                                    },
+                                    "children": [],
+                                    "characters": "Findings",
+                                    "style": {
+                                      "fontFamily": "Inter",
+                                      "fontPostScriptName": "Inter-Bold",
+                                      "fontStyle": "Bold",
+                                      "fontWeight": 700,
+                                      "textAutoResize": "HEIGHT",
+                                      "fontSize": 22.0,
+                                      "textAlignHorizontal": "LEFT",
+                                      "textAlignVertical": "TOP",
+                                      "letterSpacing": 0.0,
+                                      "lineHeightPx": 28.0,
+                                      "lineHeightPercent": 105.16431427001953,
+                                      "lineHeightPercentFontSize": 127.2727279663086,
+                                      "lineHeightUnit": "PIXELS"
+                                    }
+                                  }
+                                ]
+                              },
+                              {
+                                "name": "Depth 4, Frame 11",
+                                "type": "FRAME",
+                                "absoluteBoundingBox": {
+                                  "x": -2005.0,
+                                  "y": -29.0,
+                                  "width": 960.0,
+                                  "height": 215.0
+                                },
+                                "children": [
+                                  {
+                                    "name": "Depth 5, Frame 0",
+                                    "type": "FRAME",
+                                    "absoluteBoundingBox": {
+                                      "x": -1989.0,
+                                      "y": -13.0,
+                                      "width": 928.0,
+                                      "height": 53.0
+                                    },
+                                    "children": [
+                                      {
+                                        "name": "Depth 6, Frame 0",
+                                        "type": "FRAME",
+                                        "absoluteBoundingBox": {
+                                          "x": -1973.0,
+                                          "y": -5.0,
+                                          "width": 896.0,
+                                          "height": 37.0
+                                        },
+                                        "children": [
+                                          {
+                                            "name": "Depth 7, Frame 0",
+                                            "type": "FRAME",
+                                            "absoluteBoundingBox": {
+                                              "x": -1973.0,
+                                              "y": 3.0,
+                                              "width": 222.0,
+                                              "height": 21.0
+                                            },
+                                            "children": [
+                                              {
+                                                "name": "Finding 1: Security Vulnerabilities",
+                                                "type": "TEXT",
+                                                "absoluteBoundingBox": {
+                                                  "x": -1973.0,
+                                                  "y": 3.0,
+                                                  "width": 222.0,
+                                                  "height": 21.0
+                                                },
+                                                "children": [],
+                                                "characters": "Finding 1: Security Vulnerabilities",
+                                                "style": {
+                                                  "fontFamily": "Inter",
+                                                  "fontPostScriptName": "Inter-Medium",
+                                                  "fontStyle": "Medium",
+                                                  "fontWeight": 500,
+                                                  "textAutoResize": "WIDTH_AND_HEIGHT",
+                                                  "fontSize": 14.0,
+                                                  "textAlignHorizontal": "LEFT",
+                                                  "textAlignVertical": "TOP",
+                                                  "letterSpacing": 0.0,
+                                                  "lineHeightPx": 21.0,
+                                                  "lineHeightPercent": 123.94366455078125,
+                                                  "lineHeightPercentFontSize": 150.0,
+                                                  "lineHeightUnit": "PIXELS"
+                                                }
+                                              }
+                                            ]
+                                          },
+                                          {
+                                            "name": "Depth 7, Frame 1",
+                                            "type": "FRAME",
+                                            "absoluteBoundingBox": {
+                                              "x": -1097.0,
+                                              "y": 3.5,
+                                              "width": 20.0,
+                                              "height": 20.0
+                                            },
+                                            "children": [
+                                              {
+                                                "name": "Depth 8, Frame 0",
+                                                "type": "FRAME",
+                                                "absoluteBoundingBox": {
+                                                  "x": -1097.0,
+                                                  "y": 3.5,
+                                                  "width": 20.0,
+                                                  "height": 20.0
+                                                },
+                                                "children": [
+                                                  {
+                                                    "name": "Depth 9, Frame 0",
+                                                    "type": "FRAME",
+                                                    "absoluteBoundingBox": null,
+                                                    "children": []
+                                                  }
+                                                ]
+                                              }
+                                            ]
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "name": "Depth 5, Frame 1",
+                                    "type": "FRAME",
+                                    "absoluteBoundingBox": {
+                                      "x": -1989.0,
+                                      "y": 52.0,
+                                      "width": 928.0,
+                                      "height": 53.0
+                                    },
+                                    "children": [
+                                      {
+                                        "name": "Depth 6, Frame 0",
+                                        "type": "FRAME",
+                                        "absoluteBoundingBox": {
+                                          "x": -1973.0,
+                                          "y": 60.0,
+                                          "width": 896.0,
+                                          "height": 37.0
+                                        },
+                                        "children": [
+                                          {
+                                            "name": "Depth 7, Frame 0",
+                                            "type": "FRAME",
+                                            "absoluteBoundingBox": {
+                                              "x": -1973.0,
+                                              "y": 68.0,
+                                              "width": 240.0,
+                                              "height": 21.0
+                                            },
+                                            "children": [
+                                              {
+                                                "name": "Finding 2: Performance Bottlenecks",
+                                                "type": "TEXT",
+                                                "absoluteBoundingBox": {
+                                                  "x": -1973.0,
+                                                  "y": 68.0,
+                                                  "width": 240.0,
+                                                  "height": 21.0
+                                                },
+                                                "children": [],
+                                                "characters": "Finding 2: Performance Bottlenecks",
+                                                "style": {
+                                                  "fontFamily": "Inter",
+                                                  "fontPostScriptName": "Inter-Medium",
+                                                  "fontStyle": "Medium",
+                                                  "fontWeight": 500,
+                                                  "textAutoResize": "WIDTH_AND_HEIGHT",
+                                                  "fontSize": 14.0,
+                                                  "textAlignHorizontal": "LEFT",
+                                                  "textAlignVertical": "TOP",
+                                                  "letterSpacing": 0.0,
+                                                  "lineHeightPx": 21.0,
+                                                  "lineHeightPercent": 123.94366455078125,
+                                                  "lineHeightPercentFontSize": 150.0,
+                                                  "lineHeightUnit": "PIXELS"
+                                                }
+                                              }
+                                            ]
+                                          },
+                                          {
+                                            "name": "Depth 7, Frame 1",
+                                            "type": "FRAME",
+                                            "absoluteBoundingBox": {
+                                              "x": -1097.0,
+                                              "y": 68.5,
+                                              "width": 20.0,
+                                              "height": 20.0
+                                            },
+                                            "children": [
+                                              {
+                                                "name": "Depth 8, Frame 0",
+                                                "type": "FRAME",
+                                                "absoluteBoundingBox": {
+                                                  "x": -1097.0,
+                                                  "y": 68.5,
+                                                  "width": 20.0,
+                                                  "height": 20.0
+                                                },
+                                                "children": [
+                                                  {
+                                                    "name": "Depth 9, Frame 0",
+                                                    "type": "FRAME",
+                                                    "absoluteBoundingBox": null,
+                                                    "children": []
+                                                  }
+                                                ]
+                                              }
+                                            ]
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "name": "Depth 5, Frame 2",
+                                    "type": "FRAME",
+                                    "absoluteBoundingBox": {
+                                      "x": -1989.0,
+                                      "y": 117.0,
+                                      "width": 928.0,
+                                      "height": 53.0
+                                    },
+                                    "children": [
+                                      {
+                                        "name": "Depth 6, Frame 0",
+                                        "type": "FRAME",
+                                        "absoluteBoundingBox": {
+                                          "x": -1973.0,
+                                          "y": 125.0,
+                                          "width": 896.0,
+                                          "height": 37.0
+                                        },
+                                        "children": [
+                                          {
+                                            "name": "Depth 7, Frame 0",
+                                            "type": "FRAME",
+                                            "absoluteBoundingBox": {
+                                              "x": -1973.0,
+                                              "y": 133.0,
+                                              "width": 196.0,
+                                              "height": 21.0
+                                            },
+                                            "children": [
+                                              {
+                                                "name": "Finding 3: Compliance Issues",
+                                                "type": "TEXT",
+                                                "absoluteBoundingBox": {
+                                                  "x": -1973.0,
+                                                  "y": 133.0,
+                                                  "width": 196.0,
+                                                  "height": 21.0
+                                                },
+                                                "children": [],
+                                                "characters": "Finding 3: Compliance Issues",
+                                                "style": {
+                                                  "fontFamily": "Inter",
+                                                  "fontPostScriptName": "Inter-Medium",
+                                                  "fontStyle": "Medium",
+                                                  "fontWeight": 500,
+                                                  "textAutoResize": "WIDTH_AND_HEIGHT",
+                                                  "fontSize": 14.0,
+                                                  "textAlignHorizontal": "LEFT",
+                                                  "textAlignVertical": "TOP",
+                                                  "letterSpacing": 0.0,
+                                                  "lineHeightPx": 21.0,
+                                                  "lineHeightPercent": 123.94366455078125,
+                                                  "lineHeightPercentFontSize": 150.0,
+                                                  "lineHeightUnit": "PIXELS"
+                                                }
+                                              }
+                                            ]
+                                          },
+                                          {
+                                            "name": "Depth 7, Frame 1",
+                                            "type": "FRAME",
+                                            "absoluteBoundingBox": {
+                                              "x": -1097.0,
+                                              "y": 133.5,
+                                              "width": 20.0,
+                                              "height": 20.0
+                                            },
+                                            "children": [
+                                              {
+                                                "name": "Depth 8, Frame 0",
+                                                "type": "FRAME",
+                                                "absoluteBoundingBox": {
+                                                  "x": -1097.0,
+                                                  "y": 133.5,
+                                                  "width": 20.0,
+                                                  "height": 20.0
+                                                },
+                                                "children": [
+                                                  {
+                                                    "name": "Depth 9, Frame 0",
+                                                    "type": "FRAME",
+                                                    "absoluteBoundingBox": null,
+                                                    "children": []
+                                                  }
+                                                ]
+                                              }
+                                            ]
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  }
+                                ]
+                              },
+                              {
+                                "name": "Depth 4, Frame 12",
+                                "type": "FRAME",
+                                "absoluteBoundingBox": {
+                                  "x": -2005.0,
+                                  "y": 186.0,
+                                  "width": 960.0,
+                                  "height": 60.0
+                                },
+                                "children": [
+                                  {
+                                    "name": "Executive Summary",
+                                    "type": "TEXT",
+                                    "absoluteBoundingBox": {
+                                      "x": -1989.0,
+                                      "y": 206.0,
+                                      "width": 928.0,
+                                      "height": 28.0
+                                    },
+                                    "children": [],
+                                    "characters": "Executive Summary",
+                                    "style": {
+                                      "fontFamily": "Inter",
+                                      "fontPostScriptName": "Inter-Bold",
+                                      "fontStyle": "Bold",
+                                      "fontWeight": 700,
+                                      "textAutoResize": "HEIGHT",
+                                      "fontSize": 22.0,
+                                      "textAlignHorizontal": "LEFT",
+                                      "textAlignVertical": "TOP",
+                                      "letterSpacing": 0.0,
+                                      "lineHeightPx": 28.0,
+                                      "lineHeightPercent": 105.16431427001953,
+                                      "lineHeightPercentFontSize": 127.2727279663086,
+                                      "lineHeightUnit": "PIXELS"
+                                    }
+                                  }
+                                ]
+                              },
+                              {
+                                "name": "Depth 4, Frame 13",
+                                "type": "FRAME",
+                                "absoluteBoundingBox": {
+                                  "x": -2005.0,
+                                  "y": 246.0,
+                                  "width": 960.0,
+                                  "height": 136.0
+                                },
+                                "children": [
+                                  {
+                                    "name": "The validation run for Project Alpha identified several critical issues, including security vulnerabilities, performance bottlenecks, and compliance issues. The Skeptic Agent and Validator Agent collaborated effectively to uncover these findings, ensuring a comprehensive assessment of the system's integrity and performance. The recommended actions include immediate remediation of the identified vulnerabilities, optimization of performance-critical components, and adherence to regulatory compliance standards.",
+                                    "type": "TEXT",
+                                    "absoluteBoundingBox": {
+                                      "x": -1989.0,
+                                      "y": 250.0,
+                                      "width": 928.0,
+                                      "height": 120.0
+                                    },
+                                    "children": [],
+                                    "characters": "The validation run for Project Alpha identified several critical issues, including security vulnerabilities, performance bottlenecks, and compliance issues. The Skeptic Agent and Validator Agent collaborated effectively to uncover these findings, ensuring a comprehensive assessment of the system's integrity and performance. The recommended actions include immediate remediation of the identified vulnerabilities, optimization of performance-critical components, and adherence to regulatory compliance standards.",
+                                    "style": {
+                                      "fontFamily": "Inter",
+                                      "fontPostScriptName": null,
+                                      "fontStyle": "Regular",
+                                      "fontWeight": 400,
+                                      "textAutoResize": "HEIGHT",
+                                      "fontSize": 16.0,
+                                      "textAlignHorizontal": "LEFT",
+                                      "textAlignVertical": "TOP",
+                                      "letterSpacing": 0.0,
+                                      "lineHeightPx": 24.0,
+                                      "lineHeightPercent": 123.94366455078125,
+                                      "lineHeightPercentFontSize": 150.0,
+                                      "lineHeightUnit": "PIXELS"
+                                    }
+                                  }
+                                ]
+                              },
+                              {
+                                "name": "Depth 4, Frame 14",
+                                "type": "FRAME",
+                                "absoluteBoundingBox": {
+                                  "x": -2005.0,
+                                  "y": 382.0,
+                                  "width": 960.0,
+                                  "height": 60.0
+                                },
+                                "children": [
+                                  {
+                                    "name": "Final Recommendation",
+                                    "type": "TEXT",
+                                    "absoluteBoundingBox": {
+                                      "x": -1989.0,
+                                      "y": 402.0,
+                                      "width": 928.0,
+                                      "height": 28.0
+                                    },
+                                    "children": [],
+                                    "characters": "Final Recommendation",
+                                    "style": {
+                                      "fontFamily": "Inter",
+                                      "fontPostScriptName": "Inter-Bold",
+                                      "fontStyle": "Bold",
+                                      "fontWeight": 700,
+                                      "textAutoResize": "HEIGHT",
+                                      "fontSize": 22.0,
+                                      "textAlignHorizontal": "LEFT",
+                                      "textAlignVertical": "TOP",
+                                      "letterSpacing": 0.0,
+                                      "lineHeightPx": 28.0,
+                                      "lineHeightPercent": 105.16431427001953,
+                                      "lineHeightPercentFontSize": 127.2727279663086,
+                                      "lineHeightUnit": "PIXELS"
+                                    }
+                                  }
+                                ]
+                              },
+                              {
+                                "name": "Depth 4, Frame 15",
+                                "type": "FRAME",
+                                "absoluteBoundingBox": {
+                                  "x": -2005.0,
+                                  "y": 442.0,
+                                  "width": 960.0,
+                                  "height": 88.0
+                                },
+                                "children": [
+                                  {
+                                    "name": "Based on the findings, it is recommended to proceed with caution and address the identified issues before deploying Project Alpha to production. A follow-up validation run is advised to ensure the effectiveness of the implemented solutions and verify compliance with all relevant standards.",
+                                    "type": "TEXT",
+                                    "absoluteBoundingBox": {
+                                      "x": -1989.0,
+                                      "y": 446.0,
+                                      "width": 928.0,
+                                      "height": 72.0
+                                    },
+                                    "children": [],
+                                    "characters": "Based on the findings, it is recommended to proceed with caution and address the identified issues before deploying Project Alpha to production. A follow-up validation run is advised to ensure the effectiveness of the implemented solutions and verify compliance with all relevant standards.",
+                                    "style": {
+                                      "fontFamily": "Inter",
+                                      "fontPostScriptName": null,
+                                      "fontStyle": "Regular",
+                                      "fontWeight": 400,
+                                      "textAutoResize": "HEIGHT",
+                                      "fontSize": 16.0,
+                                      "textAlignHorizontal": "LEFT",
+                                      "textAlignVertical": "TOP",
+                                      "letterSpacing": 0.0,
+                                      "lineHeightPx": 24.0,
+                                      "lineHeightPercent": 123.94366455078125,
+                                      "lineHeightPercentFontSize": 150.0,
+                                      "lineHeightUnit": "PIXELS"
+                                    }
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+]

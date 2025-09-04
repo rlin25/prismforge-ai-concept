@@ -1,0 +1,471 @@
+name: PrismForge AI - Production CI/CD
+
+on:
+  push:
+    branches: [ main, production ]
+  pull_request:
+    branches: [ main, production ]
+    types: [opened, synchronize, reopened, ready_for_review]
+  release:
+    types: [published]
+
+env:
+  NODE_VERSION: '18'
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}/prismforge-ai
+  HELM_VERSION: 'v3.12.0'
+  KUBECTL_VERSION: 'v1.28.0'
+
+jobs:
+  # Security scanning and code quality
+  security-scan:
+    name: Security & Code Quality
+    runs-on: ubuntu-latest
+    if: github.event.pull_request.draft == false
+    
+    permissions:
+      contents: read
+      security-events: write
+      actions: read
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+    
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ env.NODE_VERSION }}
+        cache: 'npm'
+    
+    - name: Install dependencies
+      run: |
+        npm ci --audit
+        npm audit --audit-level high
+    
+    - name: Run ESLint
+      run: |
+        npm run lint -- --format=sarif --output-file=eslint-results.sarif
+      continue-on-error: true
+    
+    - name: Upload ESLint results
+      uses: github/codeql-action/upload-sarif@v3
+      if: always()
+      with:
+        sarif_file: eslint-results.sarif
+        wait-for-processing: true
+    
+    - name: Run Snyk vulnerability scan
+      uses: snyk/actions/node@master
+      env:
+        SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+      with:
+        args: --severity-threshold=high --sarif-file-output=snyk-results.sarif
+      continue-on-error: true
+    
+    - name: Upload Snyk results
+      uses: github/codeql-action/upload-sarif@v3
+      if: always() && env.SNYK_TOKEN
+      with:
+        sarif_file: snyk-results.sarif
+    
+    - name: Run CodeQL Analysis
+      uses: github/codeql-action/analyze@v3
+      with:
+        languages: javascript
+    
+    - name: Run Semgrep
+      uses: securecodewarrior/github-action-add-sarif@v1
+      if: github.event_name == 'pull_request'
+      with:
+        sarif-file: 'semgrep-results.sarif'
+    
+    - name: SonarCloud Scan
+      uses: SonarSource/sonarcloud-github-action@master
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
+  # Unit and integration tests
+  test:
+    name: Test Suite
+    runs-on: ubuntu-latest
+    needs: [security-scan]
+    
+    services:
+      postgres:
+        image: postgres:15
+        env:
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: prismforge_test
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 5432:5432
+      
+      redis:
+        image: redis:7
+        options: >-
+          --health-cmd "redis-cli ping"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 6379:6379
+    
+    strategy:
+      matrix:
+        test-type: [unit, integration, e2e]
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ env.NODE_VERSION }}
+        cache: 'npm'
+    
+    - name: Install dependencies
+      run: npm ci
+    
+    - name: Setup test environment
+      run: |
+        cp .env.test.example .env.test
+        npm run db:migrate:test
+    
+    - name: Run TypeScript checks
+      run: npm run typecheck
+    
+    - name: Run tests
+      run: |
+        case "${{ matrix.test-type }}" in
+          unit)
+            npm run test:unit -- --coverage --passWithNoTests
+            ;;
+          integration)
+            npm run test:integration -- --coverage --passWithNoTests
+            ;;
+          e2e)
+            npm run test:e2e -- --coverage --passWithNoTests
+            ;;
+        esac
+      env:
+        DATABASE_URL: postgresql://postgres:postgres@localhost:5432/prismforge_test
+        REDIS_URL: redis://localhost:6379
+        NODE_ENV: test
+    
+    - name: Upload coverage to Codecov
+      uses: codecov/codecov-action@v3
+      if: matrix.test-type == 'unit'
+      with:
+        token: ${{ secrets.CODECOV_TOKEN }}
+        files: ./coverage/lcov.info
+        flags: unittests
+        name: codecov-umbrella
+
+  # Build and push container image
+  build:
+    name: Build & Push Image
+    runs-on: ubuntu-latest
+    needs: [test]
+    if: github.event_name != 'pull_request'
+    
+    permissions:
+      contents: read
+      packages: write
+    
+    outputs:
+      image-digest: ${{ steps.build.outputs.digest }}
+      image-url: ${{ steps.build.outputs.image-url }}
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    
+    - name: Setup Docker Buildx
+      uses: docker/setup-buildx-action@v3
+      with:
+        install: true
+    
+    - name: Login to Container Registry
+      uses: docker/login-action@v3
+      with:
+        registry: ${{ env.REGISTRY }}
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+    
+    - name: Extract metadata
+      id: meta
+      uses: docker/metadata-action@v5
+      with:
+        images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+        tags: |
+          type=ref,event=branch
+          type=ref,event=pr
+          type=sha,prefix={{branch}}-
+          type=raw,value=latest,enable={{is_default_branch}}
+          type=semver,pattern={{version}}
+          type=semver,pattern={{major}}.{{minor}}
+    
+    - name: Build and push image
+      id: build
+      uses: docker/build-push-action@v5
+      with:
+        context: .
+        file: ./Dockerfile
+        platforms: linux/amd64,linux/arm64
+        push: true
+        tags: ${{ steps.meta.outputs.tags }}
+        labels: ${{ steps.meta.outputs.labels }}
+        cache-from: type=gha
+        cache-to: type=gha,mode=max
+        build-args: |
+          BUILD_DATE=${{ github.event.repository.updated_at }}
+          VCS_REF=${{ github.sha }}
+          VERSION=${{ github.ref_name }}
+    
+    - name: Run container security scan
+      uses: aquasecurity/trivy-action@master
+      with:
+        image-ref: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
+        format: 'sarif'
+        output: 'trivy-results.sarif'
+    
+    - name: Upload Trivy scan results
+      uses: github/codeql-action/upload-sarif@v3
+      if: always()
+      with:
+        sarif_file: 'trivy-results.sarif'
+
+  # Deploy to staging
+  deploy-staging:
+    name: Deploy to Staging
+    runs-on: ubuntu-latest
+    needs: [build]
+    if: github.ref == 'refs/heads/main'
+    
+    environment:
+      name: staging
+      url: https://staging.prismforge-ai.example.com
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    
+    - name: Setup kubectl
+      uses: azure/setup-kubectl@v3
+      with:
+        version: ${{ env.KUBECTL_VERSION }}
+    
+    - name: Setup Helm
+      uses: azure/setup-helm@v3
+      with:
+        version: ${{ env.HELM_VERSION }}
+    
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v4
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: ${{ secrets.AWS_REGION }}
+    
+    - name: Update kubeconfig
+      run: |
+        aws eks update-kubeconfig --name ${{ secrets.EKS_CLUSTER_NAME }} --region ${{ secrets.AWS_REGION }}
+    
+    - name: Deploy to staging
+      run: |
+        helm upgrade --install prismforge-ai-staging ./helm/prismforge-ai \
+          --namespace prismforge-ai-staging \
+          --create-namespace \
+          --set image.repository=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }} \
+          --set image.tag=${{ github.sha }} \
+          --set ingress.hosts[0].host=staging.prismforge-ai.example.com \
+          --set environment=staging \
+          --values ./helm/prismforge-ai/values-staging.yaml \
+          --wait --timeout=10m
+    
+    - name: Run smoke tests
+      run: |
+        kubectl wait --for=condition=ready pod -l app.kubernetes.io/name=prismforge-ai -n prismforge-ai-staging --timeout=300s
+        npm run test:smoke -- --baseUrl=https://staging.prismforge-ai.example.com
+    
+    - name: Notify deployment status
+      if: always()
+      uses: 8398a7/action-slack@v3
+      with:
+        status: ${{ job.status }}
+        channel: '#deployments'
+        webhook_url: ${{ secrets.SLACK_WEBHOOK }}
+
+  # Deploy to production (manual approval required)
+  deploy-production:
+    name: Deploy to Production
+    runs-on: ubuntu-latest
+    needs: [deploy-staging]
+    if: github.ref == 'refs/heads/main' || github.event_name == 'release'
+    
+    environment:
+      name: production
+      url: https://prismforge-ai.example.com
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    
+    - name: Setup kubectl
+      uses: azure/setup-kubectl@v3
+      with:
+        version: ${{ env.KUBECTL_VERSION }}
+    
+    - name: Setup Helm
+      uses: azure/setup-helm@v3
+      with:
+        version: ${{ env.HELM_VERSION }}
+    
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v4
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID_PROD }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY_PROD }}
+        aws-region: ${{ secrets.AWS_REGION_PROD }}
+    
+    - name: Update kubeconfig
+      run: |
+        aws eks update-kubeconfig --name ${{ secrets.EKS_CLUSTER_NAME_PROD }} --region ${{ secrets.AWS_REGION_PROD }}
+    
+    - name: Create database backup
+      run: |
+        kubectl exec -n prismforge-ai deployment/postgres -- pg_dump -U postgres prismforge > backup-$(date +%Y%m%d-%H%M%S).sql
+    
+    - name: Deploy to production (Blue-Green)
+      run: |
+        # Deploy to green environment
+        helm upgrade --install prismforge-ai-green ./helm/prismforge-ai \
+          --namespace prismforge-ai \
+          --set image.repository=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }} \
+          --set image.tag=${{ github.sha }} \
+          --set ingress.hosts[0].host=green.prismforge-ai.example.com \
+          --set environment=production \
+          --set replicaCount=3 \
+          --values ./helm/prismforge-ai/values-production.yaml \
+          --wait --timeout=15m
+        
+        # Run health checks on green environment
+        kubectl wait --for=condition=ready pod -l app.kubernetes.io/name=prismforge-ai-green -n prismforge-ai --timeout=600s
+        npm run test:health -- --baseUrl=https://green.prismforge-ai.example.com
+        
+        # Switch traffic to green (blue-green deployment)
+        kubectl patch service prismforge-ai-app -n prismforge-ai -p '{"spec":{"selector":{"version":"green"}}}'
+        
+        # Verify production deployment
+        sleep 30
+        npm run test:smoke -- --baseUrl=https://prismforge-ai.example.com
+    
+    - name: Rollback on failure
+      if: failure()
+      run: |
+        echo "Deployment failed, rolling back..."
+        kubectl patch service prismforge-ai-app -n prismforge-ai -p '{"spec":{"selector":{"version":"blue"}}}'
+        helm rollback prismforge-ai-green -n prismforge-ai
+    
+    - name: Clean up old blue deployment
+      if: success()
+      run: |
+        # Remove old blue deployment after successful green deployment
+        helm uninstall prismforge-ai-blue -n prismforge-ai || true
+        # Tag green as blue for next deployment
+        kubectl patch deployment prismforge-ai-green -n prismforge-ai -p '{"metadata":{"labels":{"version":"blue"}}}'
+    
+    - name: Update deployment status
+      uses: deployments@v1
+      if: always()
+      with:
+        step: finish
+        token: ${{ secrets.GITHUB_TOKEN }}
+        status: ${{ job.status }}
+        environment: production
+        deployment_id: ${{ steps.deployment.outputs.deployment_id }}
+    
+    - name: Notify production deployment
+      if: always()
+      uses: 8398a7/action-slack@v3
+      with:
+        status: ${{ job.status }}
+        channel: '#production-deployments'
+        webhook_url: ${{ secrets.SLACK_WEBHOOK_PROD }}
+        fields: repo,message,commit,author,action,eventName,ref,workflow
+
+  # Performance and load testing
+  performance-test:
+    name: Performance Testing
+    runs-on: ubuntu-latest
+    needs: [deploy-staging]
+    if: github.ref == 'refs/heads/main'
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    
+    - name: Run K6 Performance Tests
+      uses: grafana/k6-action@v0.3.0
+      with:
+        filename: tests/performance/load-test.js
+      env:
+        BASE_URL: https://staging.prismforge-ai.example.com
+        K6_OUT: json=results.json
+    
+    - name: Upload performance results
+      uses: actions/upload-artifact@v3
+      if: always()
+      with:
+        name: performance-results
+        path: results.json
+
+  # Cleanup and notifications
+  cleanup:
+    name: Cleanup & Notifications
+    runs-on: ubuntu-latest
+    needs: [deploy-production, performance-test]
+    if: always()
+    
+    steps:
+    - name: Clean up old container images
+      run: |
+        # Keep only the last 10 images
+        echo "Cleaning up old container images..."
+        # Implementation would depend on your registry
+    
+    - name: Send deployment summary
+      uses: 8398a7/action-slack@v3
+      if: always()
+      with:
+        status: custom
+        custom_payload: |
+          {
+            text: "PrismForge AI Deployment Complete",
+            attachments: [{
+              color: '${{ job.status }}' === 'success' ? 'good' : 'danger',
+              fields: [{
+                title: 'Status',
+                value: '${{ job.status }}',
+                short: true
+              }, {
+                title: 'Version',
+                value: '${{ github.sha }}',
+                short: true
+              }, {
+                title: 'Environment',
+                value: 'Production',
+                short: true
+              }]
+            }]
+          }
+        webhook_url: ${{ secrets.SLACK_WEBHOOK }}

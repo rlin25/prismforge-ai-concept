@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "supabase-admin": {
+      "command": "enhanced-postgres-mcp-server",
+      "args": ["postgresql://postgres.hshmedkrowhzsyngmruc:sbp_0967d1116140377ad597b47b52272403f23d1c0a@aws-0-us-east-1.pooler.supabase.com:6543/postgres?sslmode=require"]
+    },
+    "supabase-app": {
+      "command": "enhanced-postgres-mcp-server", 
+      "args": ["postgresql://postgres.hshmedkrowhzsyngmruc:sbp_0967d1116140377ad597b47b52272403f23d1c0a@aws-0-us-east-1.pooler.supabase.com:6543/postgres?sslmode=require"]
+    }
+  }
+}
