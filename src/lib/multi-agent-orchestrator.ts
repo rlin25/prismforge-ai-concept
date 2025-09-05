@@ -943,7 +943,7 @@ Maintain authoritative, professional tone suitable for senior executive audience
     const docPattern = /(?:document|file|exhibit|schedule|appendix|section|page)\s+[A-Za-z0-9\-_.]+/gi;
     const docMatches = text.matchAll(docPattern);
     
-    for (const match of docMatches) {
+    for (const match of Array.from(docMatches)) {
       references.push(match[0].trim());
     }
     

@@ -665,8 +665,8 @@ export class EnterpriseComplianceMonitor {
         periodEnd,
         status: 'draft',
         findings: findings || [],
-        recommendations: this.generateRecommendations(framework, findings, events),
-        riskLevel: this.calculateOverallRiskLevel(findings),
+        recommendations: this.generateRecommendations(framework, findings || [], events || []),
+        riskLevel: this.calculateOverallRiskLevel(findings || []),
         generatedAt: new Date(),
         generatedBy: 'compliance_monitor_system',
         metadata: {

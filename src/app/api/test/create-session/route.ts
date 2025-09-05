@@ -8,8 +8,10 @@ export async function POST() {
     const { data: org, error: orgError } = await supabase
       .from('organizations')
       .upsert({
+        id: '00000000-0000-0000-0000-000000000001',
         name: 'Test Organization',
-        plan_type: 'team',
+        domain: 'localhost',
+        subscription_tier: 'enterprise',
       })
       .select()
       .single();
@@ -25,11 +27,10 @@ export async function POST() {
     const { data: user, error: userError } = await supabase
       .from('users')
       .upsert({
-        email: 'test@prismforge.ai',
+        id: '00000000-0000-0000-0000-000000000001',
+        email: 'test@localhost',
         organization_id: org.id,
-        role: 'analyst',
-        auth_provider: 'email',
-        full_name: 'Test User',
+        role: 'owner',
       })
       .select()
       .single();
@@ -48,8 +49,8 @@ export async function POST() {
       .insert({
         user_id: user.id,
         organization_id: org.id,
-        title: 'Test M&A Analysis Session',
-        phase: '1',
+        session_type: 'phase1_exploration',
+        status: 'active',
       })
       .select()
       .single();

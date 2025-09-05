@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { v4 as uuidv4 } from 'uuid';
 import { ProfessionalHeader } from '@/components/professional/ProfessionalHeader';
 import { FileUpload } from '@/components/phase1/FileUpload';
 import { ChatInterface } from '@/components/phase1/ChatInterface';
@@ -21,11 +22,40 @@ import {
 import type { ProcessedDocument } from '@/types/phase1.types';
 
 export default function Phase1TestPage() {
-  const [sessionId] = useState(() => `test-session-${Date.now()}`);
+  const [sessionId] = useState(() => uuidv4());
+  const [sessionInitialized, setSessionInitialized] = useState(false);
   const [processedDocuments, setProcessedDocuments] = useState<ProcessedDocument[]>([]);
   const [phase2Ready, setPhase2Ready] = useState(false);
   const [currentView, setCurrentView] = useState<'upload' | 'chat' | 'transition' | 'phase2'>('upload');
   const [validationResult, setValidationResult] = useState<any>(null);
+
+  // Initialize session on component mount
+  useEffect(() => {
+    const initializeSession = async () => {
+      try {
+        const response = await fetch('/api/phase1/session', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            sessionId: sessionId,
+            title: `Phase 1 Test Session - ${new Date().toLocaleDateString()}`,
+          }),
+        });
+
+        if (response.ok) {
+          setSessionInitialized(true);
+        } else {
+          console.error('Failed to initialize session:', await response.text());
+        }
+      } catch (error) {
+        console.error('Error initializing session:', error);
+      }
+    };
+
+    initializeSession();
+  }, [sessionId]);
 
   const handleFileProcessed = (document: ProcessedDocument) => {
     setProcessedDocuments(prev => [...prev, document]);

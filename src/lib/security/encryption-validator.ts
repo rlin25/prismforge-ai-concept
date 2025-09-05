@@ -216,7 +216,7 @@ export class EnterpriseEncryptionValidator {
         };
       }
 
-      const algorithm = classificationConfig.algorithm || config.atRest.algorithm;
+      const algorithm = ('algorithm' in classificationConfig && classificationConfig.algorithm) || config.atRest.algorithm;
       const keyId = `${request.organizationId}_${request.classification}`;
       const key = await this.getOrCreateEncryptionKey(keyId, request.organizationId);
 
@@ -270,7 +270,7 @@ export class EnterpriseEncryptionValidator {
         dataType: request.dataType,
         classification: request.classification,
         success: false,
-        error: error.message
+        error: error instanceof Error ? error.message : 'Unknown error'
       });
 
       throw error;
@@ -329,7 +329,7 @@ export class EnterpriseEncryptionValidator {
         operation: 'decrypt',
         keyId: encryptedData.keyId,
         success: false,
-        error: error.message
+        error: error instanceof Error ? error.message : 'Unknown error'
       });
 
       throw error;
@@ -393,8 +393,8 @@ export class EnterpriseEncryptionValidator {
       return {
         valid: issues.length === 0,
         issues,
-        tlsVersion,
-        cipherSuite,
+        tlsVersion: tlsVersion || undefined,
+        cipherSuite: cipherSuite || undefined,
         riskScore
       };
 

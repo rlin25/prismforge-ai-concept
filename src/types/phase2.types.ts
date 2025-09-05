@@ -458,8 +458,8 @@ export interface ProfessionalStandardScore {
   averageConsistency: number;
   frameworkAlignment: Array<{
     framework: string;
-    score: number;
-    internalStandard: boolean;
+    consistencyScore: number;
+    professionalCompliance: boolean;
   }>;
   professionalCompliance: boolean;
   qualityAssurance: {

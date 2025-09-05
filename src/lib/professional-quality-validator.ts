@@ -114,23 +114,23 @@ export class ProfessionalQualityValidationService {
     agentType: string
   ): Promise<ProfessionalStandardScore> {
     const internalFrameworks = this.getInternalProfessionalFrameworks(agentType);
-    const consistencyScores: Array<{framework: string; score: number; internalStandard: boolean}> = [];
+    const consistencyScores: Array<{framework: string; consistencyScore: number; professionalCompliance: boolean}> = [];
     
     for (const framework of internalFrameworks) {
       const consistency = await this.assessFrameworkConsistency(result, framework);
       consistencyScores.push({
         framework: framework.name,
-        score: consistency,
-        internalStandard: framework.internalStandard
+        consistencyScore: consistency,
+        professionalCompliance: consistency >= this.PROFESSIONAL_STANDARD
       });
     }
 
-    const averageConsistency = consistencyScores.reduce((a, b) => a + b.score, 0) / consistencyScores.length;
+    const averageConsistency = consistencyScores.reduce((a, b) => a + b.consistencyScore, 0) / consistencyScores.length;
     
     return {
       averageConsistency,
       frameworkAlignment: consistencyScores,
-      professionalCompliance: consistencyScores.every(s => s.score >= this.PROFESSIONAL_STANDARD),
+      professionalCompliance: consistencyScores.every(s => s.consistencyScore >= this.PROFESSIONAL_STANDARD),
       qualityAssurance: {
         boardReadiness: averageConsistency >= this.PROFESSIONAL_STANDARD,
         investmentCommitteeQuality: averageConsistency >= this.PROFESSIONAL_STANDARD,

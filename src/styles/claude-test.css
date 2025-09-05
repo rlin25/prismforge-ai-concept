@@ -1,0 +1,259 @@
+/* Claude Test Page Custom Styles */
+
+/* Fix for Carbon Design System SkipToContent component - hide visually but keep accessible */
+.bx--skip-to-content {
+  position: absolute !important;
+  left: -10000px !important;
+  top: auto !important;
+  width: 1px !important;
+  height: 1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+
+.bx--skip-to-content:focus {
+  position: fixed !important;
+  left: 50% !important;
+  top: 1rem !important;
+  transform: translateX(-50%) !important;
+  width: auto !important;
+  height: auto !important;
+  overflow: visible !important;
+  clip: auto !important;
+  white-space: normal !important;
+  z-index: 9999 !important;
+  padding: 0.5rem 1rem !important;
+  background: #0f62fe !important;
+  color: white !important;
+  border-radius: 0.25rem !important;
+  text-decoration: none !important;
+  font-size: 0.875rem !important;
+  font-weight: 500 !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.message-fade-in {
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+/* Improve scrollbar styling for chat messages */
+.messages-container::-webkit-scrollbar {
+  width: 6px;
+}
+
+.messages-container::-webkit-scrollbar-track {
+  background: #262626;
+  border-radius: 3px;
+}
+
+.messages-container::-webkit-scrollbar-thumb {
+  background: #525252;
+  border-radius: 3px;
+}
+
+.messages-container::-webkit-scrollbar-thumb:hover {
+  background: #697077;
+}
+
+/* Better focus states for Carbon components */
+.bx--text-input:focus {
+  outline: 2px solid #0f62fe;
+  outline-offset: -2px;
+}
+
+/* Loading indicator improvements */
+.loading-container {
+  backdrop-filter: blur(2px);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .controls-container {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1rem;
+  }
+  
+  .controls-container > div {
+    justify-content: center;
+  }
+  
+  .message-bubble {
+    max-width: 85% !important;
+  }
+  
+  .input-container {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  
+  .input-container .bx--text-input {
+    margin-bottom: 0.5rem;
+  }
+}
+
+/* Carbon theme adjustments for better contrast */
+.bx--tile {
+  border: 1px solid #393939;
+}
+
+.bx--toggle__label-text {
+  color: #f4f4f4 !important;
+}
+
+/* Toggle switch text readability */
+.bx--toggle__text--on {
+  color: #f4f4f4 !important;
+}
+
+.bx--toggle__text--off {
+  color: #f4f4f4 !important;
+}
+
+/* Toggle switch background adjustments */
+.bx--toggle__switch {
+  background-color: #393939 !important;
+}
+
+.bx--toggle__switch:checked {
+  background-color: #0f62fe !important;
+}
+
+.bx--tag {
+  color: #161616;
+}
+
+.bx--tag--gray {
+  background-color: #c6c6c6;
+  color: #161616;
+}
+
+/* Additional fix for skip-to-content visibility */
+.bx--skip-to-content,
+[data-skip-to-content] {
+  position: absolute !important;
+  left: -10000px !important;
+  top: auto !important;
+  width: 1px !important;
+  height: 1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+  z-index: -1 !important;
+}
+
+/* Responsive TextInput styling */
+.bx--text-input,
+#message-input {
+  width: 100% !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+/* White placeholder text */
+#message-input::placeholder {
+  color: white !important;
+}
+
+#message-input::-webkit-input-placeholder {
+  color: white !important;
+}
+
+#message-input::-moz-placeholder {
+  color: white !important;
+}
+
+#message-input:-ms-input-placeholder {
+  color: white !important;
+}
+
+.bx--form-item {
+  width: 100% !important;
+  max-width: 100% !important;
+}
+
+/* Ensure input container is fully responsive */
+.bx--text-input__field-wrapper {
+  width: 100% !important;
+  max-width: 100% !important;
+}
+
+/* Comprehensive hiding for any remaining unwanted text elements */
+/* Hide any elements that might contain the problematic text */
+a[href="#main-content"],
+button[aria-label*="Skip"],
+.skip-link,
+.skip-to-content,
+.sr-only:not(:focus),
+[class*="skip"],
+[aria-label*="skip" i],
+[title*="skip" i] {
+  position: absolute !important;
+  left: -10000px !important;
+  top: auto !important;
+  width: 1px !important;
+  height: 1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+  z-index: -1 !important;
+}
+
+/* Show skip links only when focused for accessibility */
+a[href="#main-content"]:focus,
+button[aria-label*="Skip"]:focus,
+.skip-link:focus,
+.skip-to-content:focus,
+[class*="skip"]:focus,
+[aria-label*="skip" i]:focus,
+[title*="skip" i]:focus {
+  position: fixed !important;
+  left: 50% !important;
+  top: 1rem !important;
+  transform: translateX(-50%) !important;
+  width: auto !important;
+  height: auto !important;
+  overflow: visible !important;
+  clip: auto !important;
+  white-space: normal !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  pointer-events: auto !important;
+  z-index: 9999 !important;
+  padding: 0.5rem 1rem !important;
+  background: #0f62fe !important;
+  color: white !important;
+  border-radius: 0.25rem !important;
+  text-decoration: none !important;
+  font-size: 0.875rem !important;
+  font-weight: 500 !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
+}
+
+/* Hide text content that contains specific unwanted phrases */
+/* This is a more aggressive approach that hides text nodes */
+body *:not(script):not(style):not(title):not(meta):not(link) {
+  /* Use CSS to hide any element containing problematic text */
+  /* This is applied via JavaScript in the component if needed */
+}

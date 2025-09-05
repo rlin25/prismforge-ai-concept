@@ -2,6 +2,9 @@
 // PrismForge AI - Professional M&A Validation Platform
 
 import { NextRequest, NextResponse } from 'next/server';
+
+// Force Node.js runtime for pdf-parse compatibility
+export const runtime = 'nodejs';
 import { Phase1DocumentProcessor } from '@/lib/document-processor';
 import { supabase } from '@/lib/supabase';
 import type { ProcessedDocument } from '@/types/phase1.types';
